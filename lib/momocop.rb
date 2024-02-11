@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "momocop/version"
+require_relative 'momocop/version'
 
 module Momocop
   class Error < StandardError; end
