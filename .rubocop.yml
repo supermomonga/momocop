@@ -1,3 +1,9 @@
+require:
+  - rubocop/cop/internal_affairs
+  - rubocop-rake
+  - rubocop-rspec
+  - ./lib/momocop
+
 inherit_from: .rubocop_todo.yml
 
 inherit_mode:
@@ -10,6 +16,9 @@ AllCops:
   Exclude:
     - 'bin/**/*'
   NewCops: enable
+
+Gemspec/RequireMFA:
+  Enabled: false
 
 Bundler:
   Enabled: true
