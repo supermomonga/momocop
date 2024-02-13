@@ -79,12 +79,15 @@ module RuboCop
 
         private def model_file_source(class_name)
           path = model_file_path(class_name)
-          return File.read(path)
+          return File.read(path) if File.exist?(path)
         end
 
         private def get_model_association_names(class_name)
+          source = model_file_source(class_name)
+          return [] unless source
+
           extractor = ::Momocop::AssociationExtractor.new
-          associations = extractor.extract(model_file_source(class_name))
+          associations = extractor.extract(source)
           return associations.map { _1[:name].to_s }
         end
 
