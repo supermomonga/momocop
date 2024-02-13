@@ -2,6 +2,9 @@
 
 require 'rubocop'
 
+# rubocop-rails
+require 'rubocop/cop/mixin/active_record_helper'
+
 # Momocop
 require_relative 'momocop/association_extractor'
 require_relative 'momocop/config_injector'
