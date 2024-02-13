@@ -2,6 +2,8 @@
 
 require 'rubocop'
 
+# Momocop
+require_relative 'momocop/association_extractor'
 require_relative 'momocop/config_injector'
 require_relative 'momocop/version'
 
