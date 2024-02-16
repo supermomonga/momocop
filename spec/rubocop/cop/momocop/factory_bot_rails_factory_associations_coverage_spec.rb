@@ -85,4 +85,14 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage
       expect_no_corrections
     end
   end
+
+  describe '#model_file_path' do
+    it 'returns correct file path' do
+      cop = RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage.new
+      actual = cop.send(:model_file_path, 'User')
+      expected = 'app/models/user.rb'
+
+      expect(actual).to eq(expected)
+    end
+  end
 end
