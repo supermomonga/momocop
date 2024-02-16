@@ -17,7 +17,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionSpecified, :conf
       RUBY
 
       expect_correction(<<~RUBY)
-        factory :user, class: User.name do
+        factory :user, class: 'User' do
         end
       RUBY
     end
@@ -26,7 +26,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionSpecified, :conf
   context 'when factory method specifies a class option' do
     it 'registers no offense' do
       expect_no_offenses(<<~RUBY)
-        factory :user, class: User.name do
+        factory :user, class: 'User' do
         end
       RUBY
     end
