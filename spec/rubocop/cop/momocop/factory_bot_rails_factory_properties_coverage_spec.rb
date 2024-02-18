@@ -10,6 +10,9 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryPropertiesCoverage, 
     # mock model file source
     mock_model_source = <<-RUBY
       class User < ApplicationRecord
+        belongs_to :account
+        belongs_to :profile, foreign_key: :user_profile_id
+        belongs_to :team, class_name: 'Organization'
         enum :role, { user: 0, admin: 1 }
       end
     RUBY
@@ -32,6 +35,8 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryPropertiesCoverage, 
           t.integer "age", null: false
           t.integer "role", default: 0, null: false
           t.references "account", foreign_key: true
+          t.integer "user_profile_id", null: false
+          t.integer "organization_id", null: false
           t.datetime "created_at"
           t.datetime "updated_at"
         end

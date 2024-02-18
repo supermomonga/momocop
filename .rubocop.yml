@@ -41,6 +41,10 @@ Security:
 Style:
   Enabled: true
 
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+  AllowBracesOnProceduralOneLiners: false
+
 Style/Documentation:
   Enabled: false
 
@@ -48,6 +52,9 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always_true
   SafeAutoCorrect: true
+
+Style/IfUnlessModifier:
+  Enabled: false
 
 Style/RequireOrder:
   Enabled: true
