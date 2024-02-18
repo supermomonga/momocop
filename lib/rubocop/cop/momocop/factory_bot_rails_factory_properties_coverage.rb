@@ -49,11 +49,24 @@ module RuboCop
           block_node = node.block_node
 
           # Check missing associations
+
+          # Exclude defined sequences
           defined_sequences = get_defined_sequence_names(block_node)
+          # Exclude defined properties
           defined_properties = get_defined_property_names(block_node)
+          # Exclude foreign keys
+          model_foreign_keys = get_model_foreign_key_column_names(class_name)
+          # All available properties
           model_properties = get_model_property_names(class_name)
+          # Calc missing properties
+          missing_properties = (
+            model_properties -
+            (defined_sequences + defined_properties) -
+            model_foreign_keys
+          ).sort
+
+          # for definition block generation
           model_enum_properties = get_model_enum_property_names(class_name)
-          missing_properties = (model_properties - (defined_sequences + defined_properties)).sort
 
           # Add offense for missing properties
           return unless missing_properties.any?
@@ -101,8 +114,28 @@ module RuboCop
           return [] unless source
 
           extractor = ::Momocop::EnumExtractor.new
+          enums = extractor.extract(source)
+          return enums.map(&:to_sym)
+        end
+
+        private def get_model_foreign_key_column_names(class_name)
+          source = model_file_source(class_name)
+          return [] unless source
+
+          extractor = ::Momocop::AssociationExtractor.new
           associations = extractor.extract(source)
-          return associations.map(&:to_sym)
+          foreign_key_names =
+            associations
+            .map { |association|
+              options = association[:options]
+              if options[:foreign_key]
+                options[:foreign_key]
+              elsif options[:class_name]
+                foreign_key_name(options[:class_name])
+              end
+            }
+            .compact
+          return foreign_key_names.map(&:to_sym)
         end
 
         RESTRICTED_COLUMNS = %w[created_at updated_at].freeze
@@ -121,6 +154,14 @@ module RuboCop
         private def table_name(class_name)
           # TODO: parse model class file and try to get table_name_prefix and table_name_suffix
           class_name.tableize.gsub('/', '_')
+        end
+
+        # e.g.)
+        # 'User' -> ['users']
+        # 'Admin::User' -> ['admin_users', 'users']
+        private def foreign_key_name(class_name)
+          # TODO: parse model class file and try to get table_name_prefix and table_name_suffix
+          "#{class_name.underscore.gsub('/', '_')}_id"
         end
 
         private def get_defined_sequence_names(block_node)

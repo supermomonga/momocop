@@ -22,9 +22,23 @@ module Momocop
     end
 
     private def extract_associations(node, associations = [])
-      if node.type == :send && ASSOCIATION_METHODS.include?(node.children[1])
-        association_name = node.children[2].type == :sym ? node.children[2].children[0] : node.children[2]
-        associations << { type: node.children[1], name: association_name }
+      association_type = node.children[1]
+      options = {}
+      if node.type == :send && ASSOCIATION_METHODS.include?(association_type)
+        association_name = node.children[2].children[0].to_sym
+
+        # Extract some options
+        if association_type == :belongs_to
+          option_hash = node.children[3]
+          option_hash&.children&.each do |option|
+            key_node, value_node = option.children
+            if value_node.type == :sym || value_node.type == :str
+              options[key_node.children[0]] = value_node.children[0]
+            end
+          end
+        end
+
+        associations << { type: association_type, name: association_name, options: }
       elsif node.children.is_a? Array
         node.children.each do |child|
           extract_associations(child, associations) if child.is_a? Parser::AST::Node

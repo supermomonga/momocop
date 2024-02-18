@@ -7,7 +7,8 @@ RSpec.describe Momocop::AssociationExtractor do
         module AdminPanel
           class User < ApplicationRecord
             has_many :articles, class: 'Article'
-            belongs_to :role, dependent: :destroy
+            belongs_to :role, dependent: :destroy, class: 'Role'
+            belongs_to :group, dependent: :destroy, foreign_key: :user_group_id
             has_one :profile
 
             def foo
@@ -20,22 +21,23 @@ RSpec.describe Momocop::AssociationExtractor do
 
     let(:expected_result) do
       [
-        { type: :has_many, name: :articles },
-        { type: :belongs_to, name: :role },
-        { type: :has_one, name: :profile }
+        { type: :belongs_to, name: :group, options: { dependent: :destroy, foreign_key: :user_group_id } },
+        { type: :belongs_to, name: :role, options: { dependent: :destroy, class: 'Role' } },
+        { type: :has_many, name: :articles, options: {} },
+        { type: :has_one, name: :profile, options: {} }
       ]
     end
 
     it 'extracts associations from a given string' do
       extractor = described_class.new
       actual = extractor.extract(model_content)
-      expect(actual).to match_array(expected_result)
+      expect(actual).to eq(expected_result)
     end
 
     it 'extracts associations from a given StringIO object' do
       extractor = described_class.new
       actual = extractor.extract(StringIO.new(model_content))
-      expect(actual).to match_array(expected_result)
+      expect(actual).to eq(expected_result)
     end
   end
 end
