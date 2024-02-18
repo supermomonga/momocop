@@ -1,6 +1,7 @@
 name: bump-request
 
 permissions:
+  contents: read
   pull-requests: write
 
 on:
