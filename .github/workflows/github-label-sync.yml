@@ -1,7 +1,7 @@
 name: github-label-sync
 
 permissions:
-  pull-requests: write
+  issues: write
 
 on:
   push:
