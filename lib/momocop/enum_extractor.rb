@@ -21,8 +21,15 @@ module Momocop
 
     private def extract_enums(node, enums = [])
       if node.type == :send && node.children[1] == :enum
-        enum_name = node.children[2].type == :sym ? node.children[2].children[0] : node.children[2]
-        enums << enum_name.to_sym
+        arg = node.children[2]
+
+        if arg.type == :sym
+          # enum :role, { admin: 0, user: 1 }
+          enums << arg.children[0]
+        elsif arg.type == :hash
+          # enum role: { admin: 0, user: 1 }
+          enums << arg.children[0].children[0].children[0].to_sym
+        end
       elsif node.children.is_a? Array
         node.children.each do |child|
           extract_enums(child, enums) if child.is_a? Parser::AST::Node
