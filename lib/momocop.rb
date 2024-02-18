@@ -8,6 +8,9 @@ require 'rubocop/cop/mixin/active_record_helper'
 require 'rubocop/rails/schema_loader'
 require 'rubocop/rails/schema_loader/schema'
 
+# sevencop
+require 'sevencop/cop_concerns'
+
 # Momocop
 require_relative 'momocop/association_extractor'
 require_relative 'momocop/config_injector'
