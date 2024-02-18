@@ -7,7 +7,7 @@ RSpec.describe Momocop::EnumExtractor do
         module AdminPanel
           class User < ApplicationRecord
             enum :role, { admin: 0, user: 1 }
-            enum :status, { active: 0, inactive: 1 }
+            enum status: { active: 0, inactive: 1 }
 
             def foo
               :bar
