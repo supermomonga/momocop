@@ -3,27 +3,15 @@
 module RuboCop
   module Cop
     module Momocop
-      # Ensures that FactoryBot factories use `ClassName.name` for the class option instead of symbol or string literals.
+      # Ensures that FactoryBot factories has a valid class option.
       #
       # @example
-      #   # bad
-      #   factory :user, class: :User do
+      #   # bad (if 'app/models/user.rb' does not exist)
+      #   factory :user, class: 'User' do
       #   end
       #
-      #   factory :admin, class: 'Admin' do
-      #   end
-      #
-      #   factory :moderator, class: Moderator.to_s do
-      #   end
-      #
-      #   # good
-      #   factory :user, class: User.name do
-      #   end
-      #
-      #   factory :admin, class: Admin.name do
-      #   end
-      #
-      #   factory :moderator, class: Moderator.name do
+      #   # good (if 'app/models/admin.rb' exists)
+      #   factory :user, class: 'Admin' do
       #   end
       class FactoryBotRailsClassOptionExistence < RuboCop::Cop::Base
         extend AutoCorrector
