@@ -43,8 +43,10 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionExistence, :conf
     context 'when class option is a symbol' do
       it 'registers offense and corrects' do
         expect_offense(<<~RUBY)
-          factory(:user, class: :User) {}
-                                ^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+          FactoryBot.define do
+            factory(:user, class: :User) {}
+                                  ^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+          end
         RUBY
       end
     end
@@ -52,8 +54,10 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionExistence, :conf
     context 'when class option is a string' do
       it 'registers offense and corrects' do
         expect_offense(<<~RUBY)
-          factory(:admin, class: 'User') {}
-                                 ^^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+          FactoryBot.define do
+            factory(:admin, class: 'User') {}
+                                   ^^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+          end
         RUBY
       end
     end

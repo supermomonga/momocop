@@ -29,12 +29,14 @@ module RuboCop
 
         MSG = 'Ensure all associations of the model class are defined in the factory.'
 
+        RESTRICT_ON_SEND = %i[factory].freeze
+
         def_node_search :association_definitions, <<~PATTERN
           (send nil? :association ...)
         PATTERN
 
         def on_send(node)
-          return unless factory_bot_define_block_with_class_option?(node)
+          return unless inside_factory_bot_define?(node)
 
           class_name = get_class_name(node)
           return unless class_name
@@ -102,14 +104,6 @@ module RuboCop
 
         private def generate_association_definition(property)
           "association(:#{property})"
-        end
-
-        private def factory_bot_define_block_with_class_option?(node)
-          factory_method_call?(node) && inside_factory_bot_define?(node)
-        end
-
-        private def factory_method_call?(node)
-          node.method_name == :factory
         end
 
         private def inside_factory_bot_define?(node)
