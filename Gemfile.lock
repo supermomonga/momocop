@@ -5,6 +5,7 @@ PATH
       activesupport
       rubocop
       rubocop-rails
+      sevencop
 
 GEM
   remote: https://rubygems.org/
@@ -99,6 +100,9 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
+    sevencop (0.37.0)
+      activesupport
+      rubocop
     stringio (3.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
