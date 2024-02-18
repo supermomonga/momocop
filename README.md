@@ -24,7 +24,7 @@ All cops are disabled by default.
 require:
   - momocop
 
-Momocop/FactoryBotRailsFactoryAssociationsCoverage:
+Momocop/FactoryBotMissingAssociations:
   Enabled: true
 ```
 
@@ -32,11 +32,11 @@ Momocop/FactoryBotRailsFactoryAssociationsCoverage:
 
 |Cop|Rails|FactoryBot|
 |---|:-:|:-:|
-|[`Momocop/FactoryBotFactoryPropertyOrdered`](lib/rubocop/cop/momocop/factory_bot_factory_property_ordered.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotRailsClassOptionExistence`](lib/rubocop/cop/momocop/factory_bot_rails_class_option_existence.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotRailsClassOptionSpecified`](lib/rubocop/cop/momocop/factory_bot_rails_class_option_specified.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotRailsFactoryAssociationsCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_associations_coverage.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotRailsFactoryPropertiesCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_properties_coverage.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotClassExistence`](lib/rubocop/cop/momocop/factory_bot_class_existence.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotMissingAssociations`](lib/rubocop/cop/momocop/factory_bot_missing_associations.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:|
 
 ## Contributing
 

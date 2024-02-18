@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::FactoryBotFactoryPropertyOrdered, :config do
+RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
   let(:config) { RuboCop::Config.new }
 
   context 'when there are no property definitions' do
@@ -32,11 +32,11 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotFactoryPropertyOrdered, :config 
               association(:d) {}
               association(:b)
               association(:c) {}
-              ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotFactoryPropertyOrdered: Sort properties and associations alphabetically.
+              ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
 
               association(:e)
               association(:a) {}
-              ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotFactoryPropertyOrdered: Sort properties and associations alphabetically.
+              ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
             end
           end
         RUBY
@@ -89,12 +89,12 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotFactoryPropertyOrdered, :config 
               sequence(:e)
               f
               sequence(:d)
-              ^^^^^^^^^^^^ Momocop/FactoryBotFactoryPropertyOrdered: Sort properties and associations alphabetically.
+              ^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
 
               sequence(:b) { }
               a { }
               sequence(:c) { }
-              ^^^^^^^^^^^^^^^^ Momocop/FactoryBotFactoryPropertyOrdered: Sort properties and associations alphabetically.
+              ^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
             end
           end
         RUBY
@@ -140,7 +140,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotFactoryPropertyOrdered, :config 
               b { }
               sequence(:a)
               association(:c)
-              ^^^^^^^^^^^^^^^ Momocop/FactoryBotFactoryPropertyOrdered: Sort properties and associations alphabetically.
+              ^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
             end
           end
         RUBY

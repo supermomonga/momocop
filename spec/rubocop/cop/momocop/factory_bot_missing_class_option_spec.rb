@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionSpecified, :config do
+RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingClassOption, :config do
   let(:config) { RuboCop::Config.new }
 
   context 'when factory method does not specify a class option' do
@@ -8,14 +8,14 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionSpecified, :conf
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory(:user) { }
-          ^^^^^^^ Momocop/FactoryBotRailsClassOptionSpecified: Specify a class option explicitly in FactoryBot factory.
+          ^^^^^^^ Momocop/FactoryBotMissingClassOption: Specify a class option explicitly in FactoryBot factory.
         end
       RUBY
 
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory :user do
-          ^^^^^^^ Momocop/FactoryBotRailsClassOptionSpecified: Specify a class option explicitly in FactoryBot factory.
+          ^^^^^^^ Momocop/FactoryBotMissingClassOption: Specify a class option explicitly in FactoryBot factory.
           end
         end
       RUBY

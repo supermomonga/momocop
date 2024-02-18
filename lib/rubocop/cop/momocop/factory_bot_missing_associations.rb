@@ -23,7 +23,7 @@ module RuboCop
       #       association(:account)
       #     end
       #   end
-      class FactoryBotRailsFactoryAssociationsCoverage < RuboCop::Cop::Base
+      class FactoryBotMissingAssociations < RuboCop::Cop::Base
         include RuboCop::Cop::ActiveRecordHelper
         extend AutoCorrector
 

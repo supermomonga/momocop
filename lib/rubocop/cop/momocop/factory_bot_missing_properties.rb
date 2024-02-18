@@ -26,7 +26,7 @@ module RuboCop
       #       name { 'John Doe' }
       #     end
       #   end
-      class FactoryBotRailsFactoryPropertiesCoverage < RuboCop::Cop::Base
+      class FactoryBotMissingProperties < RuboCop::Cop::Base
         include RuboCop::Cop::ActiveRecordHelper
         extend AutoCorrector
 

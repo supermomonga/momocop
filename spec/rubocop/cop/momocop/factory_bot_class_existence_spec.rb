@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionExistence, :config do
+RSpec.describe RuboCop::Cop::Momocop::FactoryBotClassExistence, :config do
   let(:config) { RuboCop::Config.new }
 
   context 'when class option is not a symbol or string' do
@@ -45,7 +45,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionExistence, :conf
         expect_offense(<<~RUBY)
           FactoryBot.define do
             factory(:user, class: :User) {}
-                                  ^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+                                  ^^^^^ Momocop/FactoryBotClassExistence: Specified class does not exist. Please make sure that the class exists.
           end
         RUBY
       end
@@ -56,7 +56,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsClassOptionExistence, :conf
         expect_offense(<<~RUBY)
           FactoryBot.define do
             factory(:admin, class: 'User') {}
-                                   ^^^^^^ Momocop/FactoryBotRailsClassOptionExistence: Specified class does not exist. Please make sure that the class exists.
+                                   ^^^^^^ Momocop/FactoryBotClassExistence: Specified class does not exist. Please make sure that the class exists.
           end
         RUBY
       end

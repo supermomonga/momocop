@@ -13,7 +13,7 @@ module RuboCop
       #   # good (if 'app/models/admin.rb' exists)
       #   factory :user, class: 'Admin' do
       #   end
-      class FactoryBotRailsClassOptionExistence < RuboCop::Cop::Base
+      class FactoryBotClassExistence < RuboCop::Cop::Base
         extend AutoCorrector
 
         MSG = 'Specified class does not exist. Please make sure that the class exists.'
