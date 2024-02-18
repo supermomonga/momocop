@@ -4,6 +4,8 @@ require 'momocop'
 require 'rubocop'
 require 'rubocop/rspec/support'
 
+require_relative 'support/schema_loader'
+
 RSpec.configure do |config|
   config.include RuboCop::RSpec::ExpectOffense
 

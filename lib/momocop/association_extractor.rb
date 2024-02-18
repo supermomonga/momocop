@@ -18,7 +18,7 @@ module Momocop
       parser = Parser::CurrentRuby.new
       ast = parser.parse(buffer)
 
-      extract_associations(ast)
+      extract_associations(ast).sort_by { |association| [association[:type], association[:name]] }
     end
 
     private def extract_associations(node, associations = [])

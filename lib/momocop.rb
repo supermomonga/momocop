@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
+require 'parser/current'
 require 'rubocop'
 
 # rubocop-rails
 require 'rubocop/cop/mixin/active_record_helper'
+require 'rubocop/rails/schema_loader'
+require 'rubocop/rails/schema_loader/schema'
 
 # Momocop
 require_relative 'momocop/association_extractor'
 require_relative 'momocop/config_injector'
+require_relative 'momocop/enum_extractor'
 require_relative 'momocop/version'
 
 Momocop::ConfigInjector.inject_default_config!
