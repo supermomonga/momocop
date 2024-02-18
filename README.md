@@ -32,10 +32,10 @@ Momocop/FactoryBotRailsFactoryAssociationsCoverage:
 
 |Cop|Rails|FactoryBot|
 |---|---|---|
-|[`Momocop/FactoryBotRailsClassName`](lib/rubocop/cop/momocop/factory_bot_rails_class_name.rb)|:white_check_mark|:white_check_mark|
-|[`Momocop/FactoryBotRailsClassOptionSpecified`](lib/rubocop/cop/momocop/factory_bot_rails_class_option_specified.rb)|:white_check_mark|:white_check_mark|
-|[`Momocop/FactoryBotRailsFactoryAssociationsCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_associations_coverage.rb)|:white_check_mark|:white_check_mark|
-|[`Momocop/FactoryBotRailsFactoryPropertiesCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_properties_coverage.rb)|:white_check_mark|:white_check_mark|
+|[`Momocop/FactoryBotRailsClassName`](lib/rubocop/cop/momocop/factory_bot_rails_class_name.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotRailsClassOptionSpecified`](lib/rubocop/cop/momocop/factory_bot_rails_class_option_specified.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotRailsFactoryAssociationsCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_associations_coverage.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotRailsFactoryPropertiesCoverage`](lib/rubocop/cop/momocop/factory_bot_rails_factory_properties_coverage.rb)|:white_check_mark:|:white_check_mark:|
 
 ## Contributing
 
