@@ -18,6 +18,8 @@ module RuboCop
 
         MSG = 'Specified class does not exist. Please make sure that the class exists.'
 
+        RESTRICT_ON_SEND = %i[factory].freeze
+
         def_node_matcher :factory_class_option_symbol?, <<~PATTERN
           (send nil? :factory _ (hash <(pair (sym :class) $(sym _)) ...>))
         PATTERN
@@ -27,6 +29,8 @@ module RuboCop
         PATTERN
 
         def on_send(node)
+          return unless inside_factory_bot_define?(node)
+
           class_node = factory_class_option_symbol?(node) || factory_class_option_string?(node)
 
           return unless class_node
@@ -45,6 +49,11 @@ module RuboCop
 
         private def class_exists?(class_name)
           File.exist?(model_file_path(class_name))
+        end
+
+        private def inside_factory_bot_define?(node)
+          ancestors = node.each_ancestor(:block).to_a
+          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

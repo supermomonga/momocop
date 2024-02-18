@@ -18,17 +18,15 @@ module RuboCop
 
         MSG = 'Specify a class option explicitly in FactoryBot factory.'
 
-        def_node_matcher :factory_call?, <<~PATTERN
-          (send nil? :factory ...)
-        PATTERN
+        RESTRICT_ON_SEND = %i[factory].freeze
 
         def on_send(node)
-          return unless factory_call?(node)
+          return unless inside_factory_bot_define?(node)
 
           # `factory`メソッドの呼び出しで、ハッシュ引数に`:class`キーが含まれているかを調べる
-          class_option_specified = node.arguments.any? do |arg|
+          class_option_specified = node.arguments.any? { |arg|
             arg.hash_type? && arg.pairs.any? { |pair| pair.key.sym_type? && pair.key.children.first == :class }
-          end
+          }
           return if class_option_specified
 
           add_offense(node.loc.selector) do |corrector|
@@ -38,6 +36,11 @@ module RuboCop
             class_name = node.first_argument.value.to_s.camelize
             corrector.insert_after(node.first_argument.loc.expression, ", class: '#{class_name}'")
           end
+        end
+
+        private def inside_factory_bot_define?(node)
+          ancestors = node.each_ancestor(:block).to_a
+          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end
