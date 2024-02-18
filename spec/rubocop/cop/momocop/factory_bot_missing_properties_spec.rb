@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryPropertiesCoverage, :config do
+RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingProperties, :config do
   let(:config) { RuboCop::Config.new }
 
   before do
@@ -65,7 +65,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryPropertiesCoverage, 
         expect_offense(<<~RUBY)
           FactoryBot.define do
             factory :user, class: 'User' do
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotRailsFactoryPropertiesCoverage: Ensure all properties of the model class are defined in the factory.
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingProperties: Ensure all properties of the model class are defined in the factory.
               name { 'Name' }
             end
           end
@@ -87,7 +87,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryPropertiesCoverage, 
 
   describe '#model_file_path' do
     it 'returns correct file path' do
-      cop = RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage.new
+      cop = RuboCop::Cop::Momocop::FactoryBotMissingAssociations.new
       actual = cop.send(:model_file_path, 'User')
       expected = 'app/models/user.rb'
 

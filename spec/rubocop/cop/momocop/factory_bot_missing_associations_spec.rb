@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage, :config do
+RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
   let(:config) { RuboCop::Config.new }
 
   before do
@@ -34,7 +34,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User') do
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotRailsFactoryAssociationsCoverage: Ensure all associations of the model class are defined in the factory.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingAssociations: Ensure all associations of the model class are defined in the factory.
             association(:account)
           end
         end
@@ -57,7 +57,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User') {}
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotRailsFactoryAssociationsCoverage: Ensure all associations of the model class are defined in the factory.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingAssociations: Ensure all associations of the model class are defined in the factory.
         end
       RUBY
 
@@ -78,7 +78,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User')
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotRailsFactoryAssociationsCoverage: Ensure all associations of the model class are defined in the factory.
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingAssociations: Ensure all associations of the model class are defined in the factory.
         end
       RUBY
 
@@ -88,7 +88,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage
 
   describe '#model_file_path' do
     it 'returns correct file path' do
-      cop = RuboCop::Cop::Momocop::FactoryBotRailsFactoryAssociationsCoverage.new
+      cop = RuboCop::Cop::Momocop::FactoryBotMissingAssociations.new
       actual = cop.send(:model_file_path, 'User')
       expected = 'app/models/user.rb'
 

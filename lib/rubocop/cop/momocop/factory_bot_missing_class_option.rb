@@ -13,7 +13,7 @@ module RuboCop
       #   # good
       #   factory :user, class: 'User' do
       #   end
-      class FactoryBotRailsClassOptionSpecified < RuboCop::Cop::Base
+      class FactoryBotMissingClassOption < RuboCop::Cop::Base
         extend AutoCorrector
 
         MSG = 'Specify a class option explicitly in FactoryBot factory.'

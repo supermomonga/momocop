@@ -35,7 +35,7 @@ module RuboCop
       #     address { '123 Main St' }
       #     zipcode { '111-1111' }
       #   end
-      class FactoryBotFactoryPropertyOrdered < RuboCop::Cop::Base
+      class FactoryBotPropertyOrder < RuboCop::Cop::Base
         extend AutoCorrector
         include RangeHelp
 
