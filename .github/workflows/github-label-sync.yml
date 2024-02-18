@@ -1,5 +1,8 @@
 name: github-label-sync
 
+permissions:
+  pull-requests: write
+
 on:
   push:
     branches:
