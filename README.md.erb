@@ -34,11 +34,20 @@ Momocop/FactoryBotMissingAssociations:
 
 |Cop|Rails|FactoryBot|
 |---|:-:|:-:|
-|[`Momocop/FactoryBotClassExistence`](lib/rubocop/cop/momocop/factory_bot_class_existence.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingAssociations`](lib/rubocop/cop/momocop/factory_bot_missing_associations.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:|
+<%
+  files = Dir.glob('lib/rubocop/cop/momocop/*.rb').sort_by { |f| File.basename(f)}
+  files.each do |cop_file_path|
+  base_name = File.basename(cop_file_path, '.rb')
+  cop_class_name = "Momocop/#{base_name.camelize}"
+  is_factory_cop = cop_file_path.include?('factory_bot_')
+  is_rails_cop = cop_file_path.match?(/(factory_bot_|rails_)/)
+  rails_mark = is_rails_cop ? ':white_check_mark:' : ''
+  factory_bot_mark = is_factory_cop ? ':white_check_mark:' : ''
+
+  table_row = "|[`#{cop_class_name}`](#{cop_file_path})|#{rails_mark}|#{factory_bot_mark}|"
+-%>
+<%= table_row %>
+<% end -%>
 
 ## Contributing
 
