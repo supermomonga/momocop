@@ -1,0 +1,62 @@
+[English](./RADME.md) | 日本語
+
+# momocop
+
+[![Spec](https://github.com/supermomonga/momocop/actions/workflows/spec.yml/badge.svg)](https://github.com/supermomonga/momocop/actions/workflows/spec.yml) [![Gem Version](https://badge.fury.io/rb/momocop.svg)](https://badge.fury.io/rb/momocop)
+
+Momocopは、規約ベースのOpinionatedな[RuboCop](https://github.com/rubocop/rubocop)カスタムCopを提供します。
+
+## インストール
+
+`momocop`をGemfileに追加してください。
+
+```rb
+# Gemfile
+gem 'momocop', require: false
+```
+
+## 使用方法
+
+`.rubocop.yml`を編集して、`momocop`をrequireしてください。
+
+すべてのCopはデフォルトで無効になっているため、利用したいCopを有効にしてください。
+
+```yaml
+# .rubocop.yaml
+require:
+  - momocop
+
+Momocop/FactoryBotMissingAssociations:
+  Enabled: true
+```
+
+## Cop一覧
+
+|Cop|Rails|FactoryBot|
+|---|:-:|:-:|
+<%
+  files = Dir.glob('lib/rubocop/cop/momocop/*.rb').sort_by { |f| File.basename(f)}
+  files.each do |cop_file_path|
+  base_name = File.basename(cop_file_path, '.rb')
+  cop_class_name = "Momocop/#{base_name.camelize}"
+  is_factory_cop = cop_file_path.include?('factory_bot_')
+  is_rails_cop = cop_file_path.match?(/(factory_bot_|rails_)/)
+  rails_mark = is_rails_cop ? ':white_check_mark:' : ''
+  factory_bot_mark = is_factory_cop ? ':white_check_mark:' : ''
+
+  table_row = "|[`#{cop_class_name}`](#{cop_file_path})|#{rails_mark}|#{factory_bot_mark}|"
+-%>
+<%= table_row %>
+<% end -%>
+
+## 貢献
+
+GitHubの https://github.com/supermomonga/momocop でのバグ報告やプルリクエストは歓迎します。このプロジェクトは安全で、協力的な空間であることを目指しており、貢献者は[行動規範](https://github.com/supermomonga/momocop/blob/main/CODE_OF_CONDUCT.md)に従うことが求められます。
+
+## ライセンス
+
+このgemは[MITライセンス](https://opensource.org/licenses/MIT)の条件の下でオープンソースとして利用可能です。
+
+## 行動規範
+
+Momocopプロジェクトのコードベース、イシュートラッカー、チャットルーム、およびメーリングリストにおいて交流する全員は、[行動規範](https://github.com/supermomonga/momocop/blob/main/CODE_OF_CONDUCT.md)に従うことが期待されます。
