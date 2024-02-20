@@ -3,7 +3,7 @@ PATH
   specs:
     momocop (0.1.8)
       activesupport
-      rubocop
+      rubocop (>= 1.49.0)
       rubocop-rails
       sevencop
 
@@ -38,7 +38,6 @@ GEM
       rdoc
       reline (>= 0.4.2)
     json (2.7.1)
-    language_server-protocol (3.17.0.3)
     minitest (5.22.2)
     mutex_m (0.2.0)
     parallel (1.24.0)
@@ -70,15 +69,14 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.0)
-    rubocop (1.60.2)
+    rubocop (1.49.0)
       json (~> 2.3)
-      language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.3.0.2)
+      parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.30.0, < 2.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
@@ -100,7 +98,7 @@ GEM
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    sevencop (0.37.0)
+    sevencop (0.38.0)
       activesupport
       rubocop
     stringio (3.1.0)

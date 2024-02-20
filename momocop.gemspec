@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'rubocop'
+  spec.add_runtime_dependency 'rubocop', '>= 1.49.0'
   spec.add_runtime_dependency 'rubocop-rails'
   spec.add_runtime_dependency 'sevencop'
 end
