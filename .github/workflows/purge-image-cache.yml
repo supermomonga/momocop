@@ -6,6 +6,8 @@ permissions:
 on:
   workflow_dispatch:
   workflow_call:
+  schedule:
+    - cron: '0 15 * * *' # 15 UTC = 0 JST
 
 jobs:
   purge-image-cache:
