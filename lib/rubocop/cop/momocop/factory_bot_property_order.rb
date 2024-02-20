@@ -87,7 +87,13 @@ module RuboCop
         end
 
         private def definition_node?(node)
-          node.send_type? || (node.block_type? && node.children.first.send_type?)
+          if node.send_type?
+            return node.method_name != :trait
+          elsif node.block_type? && node.children.first.send_type?
+            return node.children.first.method_name != :trait
+          end
+
+          return false
         end
 
         private def definition_type(node)

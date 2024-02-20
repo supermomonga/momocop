@@ -167,5 +167,39 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
         RUBY
       end
     end
+
+    context 'has trait definition' do
+      it 'registers offense and corrects by order properties' do
+        expect_offense(<<~RUBY)
+          FactoryBot.define do
+            factory(:user) do
+              trait(:trait1) {}
+              d
+              c
+              ^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
+              trait(:trait2) {}
+              b
+              a
+              ^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
+              trait(:trait3) {}
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.define do
+            factory(:user) do
+              trait(:trait1) {}
+              c
+              d
+              trait(:trait2) {}
+              a
+              b
+              trait(:trait3) {}
+            end
+          end
+        RUBY
+      end
+    end
   end
 end
