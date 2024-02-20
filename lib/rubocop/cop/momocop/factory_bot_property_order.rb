@@ -88,11 +88,13 @@ module RuboCop
           body_node&.children&.select { |node| definition_node?(node) } || []
         end
 
+        RUBOCOP_HELPER_METHODS = %i[trait transient before after].freeze
+
         private def definition_node?(node)
           if node.send_type?
-            return node.method_name != :trait
+            return !RUBOCOP_HELPER_METHODS.include?(node.method_name)
           elsif node.block_type? && node.children.first.send_type?
-            return node.children.first.method_name != :trait
+            return !RUBOCOP_HELPER_METHODS.include?(node.children.first.method_name)
           end
 
           return false
