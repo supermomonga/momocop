@@ -87,7 +87,19 @@ module RuboCop
 
         private def defined_properties(block_node)
           body_node = block_node&.children&.last
-          body_node&.children&.select { |node| definition_node?(node) } || []
+
+          # empty block
+          return [] unless body_node
+
+          # begin
+          if body_node.begin_type?
+            body_node&.children&.select { |node| definition_node?(node) } || []
+          # block
+          elsif body_node.send_type? && definition_node?(body_node)
+            [body_node]
+          else
+            []
+          end
         end
 
         RUBOCOP_HELPER_METHODS = %i[trait transient before after].freeze

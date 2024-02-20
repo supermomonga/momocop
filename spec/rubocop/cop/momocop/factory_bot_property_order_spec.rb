@@ -14,6 +14,18 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
     end
   end
 
+  context 'when there is only one property' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        FactoryBot.define do
+          factory :user do
+            a
+          end
+        end
+      RUBY
+    end
+  end
+
   describe 'association definitions' do
     context 'when block is missing' do
       it 'registers no offense' do
@@ -191,7 +203,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               d
               c
               # b
-              b
+              b { }
               # a1
               # a2
               a
@@ -211,7 +223,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               # a2
               a
               # b
-              b
+              b { }
               c
               # d
               d
