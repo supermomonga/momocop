@@ -36,7 +36,6 @@ module RuboCop
           return unless class_node
 
           class_name = class_node.value.to_s
-          puts class_name
 
           return if class_exists?(class_name)
 
