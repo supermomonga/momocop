@@ -148,10 +148,14 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
         expect_offense(<<~RUBY)
           FactoryBot.define do
             factory(:user) do
-              d { }
+              d {
+                :d
+              }
               sequence(:e)
               association(:f)
-              b { }
+              b {
+                :b
+              }
               sequence(:a)
               association(:c)
               ^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
@@ -165,9 +169,55 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               association(:c)
               association(:f)
               sequence(:a)
-              b { }
-              d { }
+              b {
+                :b
+              }
+              d {
+                :d
+              }
               sequence(:e)
+            end
+          end
+        RUBY
+      end
+    end
+
+    context 'has comment' do
+      it 'registers offense and corrects by order properties' do
+        expect_offense(<<~RUBY)
+          FactoryBot.define do
+            factory(:user) do
+              # d
+              d
+              c
+              # b
+              b
+              # a1
+              # a2
+              a
+              ^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
+
+              ab
+              aa
+              ^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.define do
+            factory(:user) do
+              # a1
+              # a2
+              a
+              # b
+              b
+              c
+              # d
+              d
+
+              aa
+              ab
             end
           end
         RUBY

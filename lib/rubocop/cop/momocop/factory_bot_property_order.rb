@@ -55,7 +55,9 @@ module RuboCop
 
           sections =
             entire_definitions
-            .slice_when { |a, b| b.loc.last_line - a.loc.last_line > 1 }
+            .slice_when { |a, b|
+              (range_with_comments(b).first_line - range_with_comments(a).last_line) > 1
+            }
             .select { |definitions| definitions.size >= 2 }
 
           sections.each do |definitions|
