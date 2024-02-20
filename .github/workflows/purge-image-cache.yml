@@ -1,0 +1,19 @@
+name: Purge image cache in README
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  purge-image-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge image cache in README
+        uses: koki-develop/hub-purge-action@v1
+        with:
+          path: |
+            README.md
+            README.ja.md

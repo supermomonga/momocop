@@ -14,3 +14,6 @@ jobs:
     uses: r7kamura/workflows/.github/workflows/gem-release.yml@main
     secrets:
       rubygems-org-api-key: ${{ secrets.RUBYGEMS_ORG_API_KEY }}
+  purge-image-cache:
+    needs: release
+    uses: ./.github/workflows/purge-image-cache.yml
