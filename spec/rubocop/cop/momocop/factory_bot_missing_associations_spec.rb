@@ -74,15 +74,23 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
   end
 
   context 'when block is missing' do
-    it 'does not trigger autocorrect' do
+    it 'creates block' do
       expect_offense(<<~RUBY)
         FactoryBot.define do
-          factory(:user, class: 'User')
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingAssociations: Ensure all associations of the model class are defined in the factory.
+          factory :user, class: 'User'
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingAssociations: Ensure all associations of the model class are defined in the factory.
         end
       RUBY
 
-      expect_no_corrections
+      expect_correction(<<~RUBY)
+        FactoryBot.define do
+          factory :user, class: 'User' do
+            association(:account)
+            association(:posts)
+            association(:profile)
+          end
+        end
+      RUBY
     end
   end
 

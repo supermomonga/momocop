@@ -13,6 +13,14 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
   end
 
   describe 'association definitions' do
+    context 'when block is missing' do
+      it 'registers no offense' do
+        expect_no_offenses(<<~RUBY)
+          factory(:user)
+        RUBY
+      end
+    end
+
     context 'has correct order' do
       it 'registers no offense' do
         expect_no_offenses(<<~RUBY)

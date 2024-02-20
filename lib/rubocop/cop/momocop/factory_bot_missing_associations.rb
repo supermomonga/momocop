@@ -43,6 +43,14 @@ module RuboCop
 
           block_node = node.block_node
 
+          # Add block if it's missing
+          unless block_node
+            add_offense(node, message: MSG) do |corrector|
+              indentation = ' ' * node.loc.column
+              corrector.insert_after(node.source_range.end, " do\n#{indentation}end")
+            end
+          end
+
           # Check missing associations
           defined_associations = get_defined_association_names(block_node)
           model_associations = get_model_association_names(class_name)
@@ -52,8 +60,6 @@ module RuboCop
           return unless missing_associations.any?
 
           add_offense(node, message: MSG) do |corrector|
-            next unless block_node
-
             # Add newline before closing block if it's a one-liner
             if one_line_block?(block_node)
               indentation = ' ' * node.loc.column
@@ -66,6 +72,8 @@ module RuboCop
 
               # TODO: calculate indentation size
               indentation = ' ' * (node.loc.column + 2)
+
+              # use send node if blockless
               corrector.insert_after(block_node.loc.begin, "\n#{indentation}#{definition}")
             end
           end
@@ -76,6 +84,8 @@ module RuboCop
         end
 
         private def one_line_block?(block_node)
+          return false if block_node.nil?
+
           block_node.loc.begin.line == block_node.loc.end.line
         end
 
