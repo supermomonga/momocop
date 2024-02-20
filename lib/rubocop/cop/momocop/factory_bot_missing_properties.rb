@@ -54,7 +54,7 @@ module RuboCop
           unless block_node
             add_offense(node, message: MSG) do |corrector|
               indentation = ' ' * node.loc.column
-              corrector.insert_after(node.source_range.end, " do\n#{indentation}end")
+              corrector.replace(node.source_range, "#{node.source} do\n#{indentation}end")
             end
           end
 
