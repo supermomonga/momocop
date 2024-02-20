@@ -6,7 +6,9 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
   context 'when there are no property definitions' do
     it 'registers no offense' do
       expect_no_offenses(<<~RUBY)
-        factory :user do
+        FactoryBot.define do
+          factory :user do
+          end
         end
       RUBY
     end
@@ -16,7 +18,9 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
     context 'when block is missing' do
       it 'registers no offense' do
         expect_no_offenses(<<~RUBY)
-          factory(:user)
+          FactoryBot.define do
+            factory(:user)
+          end
         RUBY
       end
     end
@@ -24,9 +28,11 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
     context 'has correct order' do
       it 'registers no offense' do
         expect_no_offenses(<<~RUBY)
-          factory(:user) do
-            association(:a)
-            association(:b)
+          FactoryBot.define do
+            factory(:user) do
+              association(:a)
+              association(:b)
+            end
           end
         RUBY
       end

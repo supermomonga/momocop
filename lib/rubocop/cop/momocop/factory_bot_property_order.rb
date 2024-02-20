@@ -49,6 +49,8 @@ module RuboCop
           return unless inside_factory_bot_define?(node)
 
           block_node = node.block_node
+          return unless block_node
+
           entire_definitions = defined_properties(block_node)
 
           sections =
@@ -83,7 +85,7 @@ module RuboCop
 
         private def defined_properties(block_node)
           body_node = block_node&.children&.last
-          body_node&.children&.select { |node| definition_node?(node) }
+          body_node&.children&.select { |node| definition_node?(node) } || []
         end
 
         private def definition_node?(node)
