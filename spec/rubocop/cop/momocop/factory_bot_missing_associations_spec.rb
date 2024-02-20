@@ -8,8 +8,9 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
     mock_model_source = <<-RUBY
       class User < ApplicationRecord
         belongs_to :account
-        has_one :profile
-        has_many :posts
+        belongs_to :profile, optional: true
+        has_one :role
+        has_many :articles
       end
     RUBY
     allow_any_instance_of(described_class).to receive(:model_file_source).and_return(mock_model_source)
@@ -21,8 +22,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
         FactoryBot.define do
           factory :user, class: 'User' do
             association(:account)
-            association(:posts) {}
-            association :profile
+            association(:profile)
           end
         end
       RUBY
@@ -43,7 +43,6 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User') do
-            association(:posts)
             association(:profile)
             association(:account)
           end
@@ -65,7 +64,6 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
         FactoryBot.define do
           factory(:user, class: 'User') {
             association(:account)
-            association(:posts)
             association(:profile)
           }
         end
@@ -86,7 +84,6 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
         FactoryBot.define do
           factory :user, class: 'User' do
             association(:account)
-            association(:posts)
             association(:profile)
           end
         end

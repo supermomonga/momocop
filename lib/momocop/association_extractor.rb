@@ -32,9 +32,15 @@ module Momocop
           option_hash = node.children[3]
           option_hash&.children&.each do |option|
             key_node, value_node = option.children
-            if value_node.type == :sym || value_node.type == :str
+            # rubocop:disable Lint/BooleanSymbol
+            if %i[sym str].include?(value_node.type)
               options[key_node.children[0]] = value_node.children[0]
+            elsif value_node.type == :true
+              options[key_node.children[0]] = true
+            elsif value_node.type == :false
+              options[key_node.children[0]] = false
             end
+            # rubocop:enable Lint/BooleanSymbol
           end
         end
 

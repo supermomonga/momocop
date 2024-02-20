@@ -100,7 +100,11 @@ module RuboCop
 
           extractor = ::Momocop::AssociationExtractor.new
           associations = extractor.extract(source)
-          return associations.map { _1[:name].to_s }
+          belongs_to_associations =
+            associations
+            .select { _1[:type] == :belongs_to }
+            .map { _1[:name].to_s }
+          return belongs_to_associations
         end
 
         private def get_defined_association_names(block_node)

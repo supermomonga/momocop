@@ -7,7 +7,7 @@ RSpec.describe Momocop::AssociationExtractor do
         module AdminPanel
           class User < ApplicationRecord
             has_many :articles, class: 'Article'
-            belongs_to :role, dependent: :destroy, class: 'Role'
+            belongs_to :role, dependent: :destroy, class: 'Role', optional: true
             belongs_to :group, dependent: :destroy, foreign_key: :user_group_id
             has_one :profile
 
@@ -22,7 +22,7 @@ RSpec.describe Momocop::AssociationExtractor do
     let(:expected_result) do
       [
         { type: :belongs_to, name: :group, options: { dependent: :destroy, foreign_key: :user_group_id } },
-        { type: :belongs_to, name: :role, options: { dependent: :destroy, class: 'Role' } },
+        { type: :belongs_to, name: :role, options: { dependent: :destroy, class: 'Role', optional: true } },
         { type: :has_many, name: :articles, options: {} },
         { type: :has_one, name: :profile, options: {} }
       ]
