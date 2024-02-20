@@ -50,6 +50,14 @@ module RuboCop
 
           block_node = node.block_node
 
+          # Add block if it's missing
+          unless block_node
+            add_offense(node, message: MSG) do |corrector|
+              indentation = ' ' * node.loc.column
+              corrector.insert_after(node.source_range.end, " do\n#{indentation}end")
+            end
+          end
+
           # Check missing associations
 
           # Exclude defined sequences

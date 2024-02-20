@@ -83,6 +83,28 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingProperties, :config do
         RUBY
       end
     end
+
+    context 'when block is missing' do
+      it 'creates block' do
+        expect_offense(<<~RUBY)
+          FactoryBot.define do
+            factory :user, class: 'User'
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotMissingProperties: Ensure all properties of the model class are defined in the factory.
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.define do
+            factory :user, class: 'User' do
+              sequence(:age) { _1 }
+              sequence(:email) { "Email #\{_1}" }
+              sequence(:name) { "Name #\{_1}" }
+              role { User.roles.keys.sample }
+            end
+          end
+        RUBY
+      end
+    end
   end
 
   describe '#model_file_path' do
