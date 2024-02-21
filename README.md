@@ -38,6 +38,10 @@ Momocop/FactoryBotMissingProperties:
   Enabled: true
 Momocop/FactoryBotPropertyOrder:
   Enabled: true
+Momocop/FactoryBotSingleDefinePerFile:
+  Enabled: true
+Momocop/FactoryBotSingleFactoryPerDefine:
+  Enabled: true
 ```
 
 ## Cops
@@ -50,6 +54,8 @@ Momocop/FactoryBotPropertyOrder:
 |[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotSingleDefinePerFile`](lib/rubocop/cop/momocop/factory_bot_single_define_per_file.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:|
 
 ## Contributing
 
