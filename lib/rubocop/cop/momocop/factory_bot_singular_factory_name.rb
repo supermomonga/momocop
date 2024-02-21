@@ -29,9 +29,7 @@ module RuboCop
         def on_send(node)
           return unless inside_factory_bot_define?(node)
 
-          p node
           factory_name = node.first_argument.value.to_s
-          p factory_name
           return if factory_name.singularize == factory_name
 
           add_offense(node.first_argument) do |corrector|
