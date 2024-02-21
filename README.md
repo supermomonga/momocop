@@ -42,6 +42,8 @@ Momocop/FactoryBotSingleDefinePerFile:
   Enabled: true
 Momocop/FactoryBotSingleFactoryPerDefine:
   Enabled: true
+Momocop/FactoryBotSingularFactoryName:
+  Enabled: true
 ```
 
 ## Cops
@@ -56,6 +58,7 @@ Momocop/FactoryBotSingleFactoryPerDefine:
 |[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotSingleDefinePerFile`](lib/rubocop/cop/momocop/factory_bot_single_define_per_file.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:|
 
 ## Contributing
 
