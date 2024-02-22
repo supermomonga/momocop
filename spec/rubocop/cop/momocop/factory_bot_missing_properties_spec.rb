@@ -37,7 +37,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingProperties, :config do
           t.integer "role", default: 0, null: false
           t.references "account", foreign_key: true
           t.integer "user_profile_id", null: false
-          t.integer "organization_id", null: false
+          t.integer "team_id", null: false
           t.integer "group_id", null: false
           t.datetime "created_at"
           t.datetime "updated_at"

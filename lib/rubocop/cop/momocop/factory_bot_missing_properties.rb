@@ -139,13 +139,7 @@ module RuboCop
             .select { _1[:type] == :belongs_to }
             .map { |association|
               options = association[:options]
-              if options[:foreign_key]
-                options[:foreign_key]
-              elsif options[:class_name]
-                foreign_key_name(options[:class_name])
-              else
-                "#{association[:name]}_id"
-              end
+              options[:foreign_key] || "#{association[:name]}_id"
             }
             .compact
           return foreign_key_names.map(&:to_sym)
