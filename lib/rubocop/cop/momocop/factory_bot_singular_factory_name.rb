@@ -33,7 +33,6 @@ module RuboCop
           return if factory_name.singularize == factory_name
 
           add_offense(node.first_argument) do |corrector|
-            p node.first_argument
             if node.first_argument.type == :sym
               corrector.replace(node.first_argument.loc.expression, ":#{factory_name.singularize}")
             elsif node.first_argument.type == :str
