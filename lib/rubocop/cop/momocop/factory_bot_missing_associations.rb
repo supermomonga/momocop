@@ -112,8 +112,25 @@ module RuboCop
           return [] unless body_node
 
           associations = association_definitions(body_node)
-          association_names = associations&.map(&:first_argument)&.map(&:value)&.map(&:to_s)
+          association_names = associations&.map { |node| get_association_name(node) }
           return association_names
+        end
+
+        private def get_association_name(node)
+          # Explicit definition
+          return node.arguments.first.value.to_s if inside_factory_bot_factory?(node)
+
+          # Inline definition
+          context = node.each_ancestor(:block).first
+          send_node = context.block_type? ? context.send_node : context
+          return send_node.method_name.to_s
+        end
+
+        private def inside_factory_bot_factory?(node)
+          context = node.each_ancestor(:block).first
+          send_node = context.block_type? ? context.send_node : context
+
+          return send_node.method_name == :factory
         end
 
         private def generate_association_definition(property)

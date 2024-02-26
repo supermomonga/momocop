@@ -32,16 +32,32 @@ module RuboCop
 
           add_offense(node.loc.selector, message: MSG) do |corrector|
             association_name = node.arguments.first.value
-            options = node.arguments.drop(1).map(&:source).join(', ')
+            options = node.arguments.at(1)
 
+            convert_options(options) in {
+              factory_option:, rest_options:
+            }
+            factory = factory_option&.source || ":#{association_name}"
             replacement =
-              if options.empty?
-                "#{association_name} { association :#{association_name} }"
+              if rest_options.empty?
+                "#{association_name} { association #{factory} }"
               else
-                "#{association_name} { association :#{association_name}, #{options} }"
+                rest_options_source = rest_options.map(&:source).join(', ')
+                "#{association_name} { association #{factory}, #{rest_options_source} }"
               end
             corrector.replace(node, replacement)
           end
+        end
+
+        # `association :foo, factory: :bar, baz: 1 ...` => `foo { association :bar, baz: 1 ...}`
+        private def convert_options(options)
+          factory_option = options&.pairs&.find { |pair| pair.key.value == :factory }&.value
+          rest_options = options&.pairs&.reject { |pair| pair.key.value == :factory } || []
+
+          return {
+            factory_option:,
+            rest_options:
+          }
         end
 
         private def inside_factory_bot_factory?(node)

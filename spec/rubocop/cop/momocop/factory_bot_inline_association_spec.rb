@@ -9,7 +9,8 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
         FactoryBot.define do
           factory :blog_post do
             user { association :user }
-            profile { association :profile, factory: :foo }
+            profile { association :profile, foo: :bar }
+            role { association [ :foo, :trait], foo: :bar }
           end
         end
       RUBY
@@ -38,7 +39,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
       expect_offense(<<~RUBY)
         FactoryBot.define do
           factory :blog_post do
-            association(:user)
+            association(:admin, factory: :user)
             ^^^^^^^^^^^ Momocop/FactoryBotInlineAssociation: Use inline association definition instead of separate `association` method call.
             association(:profile)
             ^^^^^^^^^^^ Momocop/FactoryBotInlineAssociation: Use inline association definition instead of separate `association` method call.
@@ -49,7 +50,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory :blog_post do
-            user { association :user }
+            admin { association :user }
             profile { association :profile }
           end
         end
@@ -82,7 +83,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory :blog_post do
-            user { association :user, factory: [:factory, :trait], prop1: 1, prop2: 2 }
+            user { association [:factory, :trait], prop1: 1, prop2: 2 }
           end
         end
       RUBY

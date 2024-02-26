@@ -31,7 +31,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
         FactoryBot.define do
           factory :user, class: 'User' do
             account { association(:account) }
-            profile { association(:profile) }
+            profile { association(:foo) }
           end
         end
       RUBY
