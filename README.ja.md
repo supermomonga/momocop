@@ -30,6 +30,8 @@ Momocop/FactoryBotClassExistence:
   Enabled: true
 Momocop/FactoryBotConsistentFileName:
   Enabled: true
+Momocop/FactoryBotInlineAssociation:
+  Enabled: true
 Momocop/FactoryBotMissingAssociations:
   Enabled: true
 Momocop/FactoryBotMissingClassOption:
@@ -52,6 +54,7 @@ Momocop/FactoryBotSingularFactoryName:
 |---|:-:|:-:|
 |[`Momocop/FactoryBotClassExistence`](lib/rubocop/cop/momocop/factory_bot_class_existence.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotConsistentFileName`](lib/rubocop/cop/momocop/factory_bot_consistent_file_name.rb)|:white_check_mark:|:white_check_mark:|
+|[`Momocop/FactoryBotInlineAssociation`](lib/rubocop/cop/momocop/factory_bot_inline_association.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotMissingAssociations`](lib/rubocop/cop/momocop/factory_bot_missing_associations.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:|
