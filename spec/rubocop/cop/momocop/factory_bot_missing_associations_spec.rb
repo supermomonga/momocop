@@ -26,6 +26,15 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
           end
         end
       RUBY
+
+      expect_no_offenses(<<~RUBY)
+        FactoryBot.define do
+          factory :user, class: 'User' do
+            account { association(:account) }
+            profile { association(:profile) }
+          end
+        end
+      RUBY
     end
   end
 
@@ -43,7 +52,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User') do
-            association(:profile)
+            profile { association :profile }
             association(:account)
           end
         end
@@ -63,8 +72,8 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory(:user, class: 'User') {
-            association(:account)
-            association(:profile)
+            account { association :account }
+            profile { association :profile }
           }
         end
       RUBY
@@ -83,8 +92,8 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingAssociations, :config do
       expect_correction(<<~RUBY)
         FactoryBot.define do
           factory :user, class: 'User' do
-            association(:account)
-            association(:profile)
+            account { association :account }
+            profile { association :profile }
           end
         end
       RUBY

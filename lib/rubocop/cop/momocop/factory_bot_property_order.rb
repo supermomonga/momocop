@@ -116,8 +116,17 @@ module RuboCop
 
         private def definition_type(node)
           send_node = node.send_type? ? node : node.children.first
+          has_association_body =
+            send_node
+            .block_node
+            &.children
+            &.last
+            &.children
+            &.any? { _1.is_a?(Parser::AST::Node) && _1.send_type? && _1.method_name == :association }
           if %i[association sequence].include? send_node.method_name
             send_node.method_name
+          elsif has_association_body
+            :association
           else
             :property
           end

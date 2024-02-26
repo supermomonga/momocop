@@ -47,6 +47,15 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
             end
           end
         RUBY
+
+        expect_no_offenses(<<~RUBY)
+          FactoryBot.define do
+            factory(:user) do
+              a { association(:a) }
+              b { association(:b) }
+            end
+          end
+        RUBY
       end
     end
 
@@ -60,9 +69,9 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               association(:c) {}
               ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
 
-              association(:e)
-              association(:a) {}
-              ^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
+              e { association(:e) }
+              a { association(:a) {} }
+              ^^^^^^^^^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
             end
           end
         RUBY
@@ -74,8 +83,8 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               association(:c) {}
               association(:d) {}
 
-              association(:a) {}
-              association(:e)
+              a { association(:a) {} }
+              e { association(:e) }
             end
           end
         RUBY

@@ -117,7 +117,7 @@ module RuboCop
         end
 
         private def generate_association_definition(property)
-          "association(:#{property})"
+          "#{property} { association :#{property} }"
         end
 
         private def inside_factory_bot_define?(node)
