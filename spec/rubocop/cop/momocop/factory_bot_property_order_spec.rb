@@ -117,7 +117,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               sequence(:d)
               ^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
 
-              sequence(:b) { }
+              sequence(:b) { "b #\{_1}" }
               a { }
               sequence(:c) { }
               ^^^^^^^^^^^^^^^^ Momocop/FactoryBotPropertyOrder: Sort properties and associations alphabetically.
@@ -133,7 +133,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotPropertyOrder, :config do
               f
 
               a { }
-              sequence(:b) { }
+              sequence(:b) { "b #\{_1}" }
               sequence(:c) { }
             end
           end
