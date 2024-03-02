@@ -8,12 +8,14 @@ module RuboCop
       # @example
       #   # bad
       #   factory :blog_post do
-      #     association(:user)
+      #     association(:user, factory: :foo)
+      #     association(:admin, factory: [:foo, :trait])
       #   end
       #
       #   # good
       #   factory :blog_post do
-      #     user { association :user }
+      #     user { association :foo }
+      #     admin { association :foo, :trait }
       #   end
       class FactoryBotInlineAssociation < RuboCop::Cop::Base
         extend AutoCorrector

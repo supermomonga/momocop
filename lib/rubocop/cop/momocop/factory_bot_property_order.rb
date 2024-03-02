@@ -121,7 +121,8 @@ module RuboCop
             .block_node
             &.children
             &.last
-            &.children
+            # sinble-statement block or multi-statement block
+            &.then { _1.send_type? ? [_1] : _1.children }
             &.any? { _1.is_a?(Parser::AST::Node) && _1.send_type? && _1.method_name == :association }
           if %i[association sequence].include? send_node.method_name
             send_node.method_name
