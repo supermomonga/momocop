@@ -15,6 +15,8 @@ module RuboCop
       #   end
       class FactoryBotClassExistence < RuboCop::Cop::Base
         extend AutoCorrector
+        include ::Momocop::Helpers::FactoryBotHelper
+        include ::Momocop::Helpers::RailsHelper
 
         MSG = 'Specified class does not exist. Please make sure that the class exists.'
 
@@ -42,17 +44,8 @@ module RuboCop
           add_offense(class_node)
         end
 
-        private def model_file_path(class_name)
-          "app/models/#{class_name.underscore}.rb"
-        end
-
         private def class_exists?(class_name)
           File.exist?(model_file_path(class_name))
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

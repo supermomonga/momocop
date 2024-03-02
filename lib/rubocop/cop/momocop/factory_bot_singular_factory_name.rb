@@ -21,6 +21,7 @@ module RuboCop
       #   end
       class FactoryBotSingularFactoryName < RuboCop::Cop::Base
         extend AutoCorrector
+        include ::Momocop::Helpers::FactoryBotHelper
 
         MSG = 'Factory name should be singular, not plural.'
 
@@ -43,12 +44,6 @@ module RuboCop
               end
             end
           end
-        end
-
-        # Checks if the node is inside a FactoryBot definition block.
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

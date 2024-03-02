@@ -27,6 +27,8 @@ module RuboCop
       #     end
       #   end
       class FactoryBotSingleDefinePerFile < RuboCop::Cop::Base
+        include ::Momocop::Helpers::FactoryBotHelper
+
         MSG = 'Only one `FactoryBot.define` block is allowed per file.'
 
         def on_new_investigation
@@ -43,10 +45,6 @@ module RuboCop
           factory_bot_define_blocks[1..].each do |factory_bot_define_block|
             add_offense(factory_bot_define_block, message: MSG)
           end
-        end
-
-        private def factory_bot_define?(node)
-          node.send_type? && node.method_name == :define && node.receiver&.const_name == 'FactoryBot'
         end
       end
     end

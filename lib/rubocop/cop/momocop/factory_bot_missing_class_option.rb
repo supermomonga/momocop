@@ -15,6 +15,7 @@ module RuboCop
       #   end
       class FactoryBotMissingClassOption < RuboCop::Cop::Base
         extend AutoCorrector
+        include ::Momocop::Helpers::FactoryBotHelper
 
         MSG = 'Specify a class option explicitly in FactoryBot factory.'
 
@@ -36,11 +37,6 @@ module RuboCop
             class_name = node.first_argument.value.to_s.camelize
             corrector.insert_after(node.first_argument.loc.expression, ", class: '#{class_name}'")
           end
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

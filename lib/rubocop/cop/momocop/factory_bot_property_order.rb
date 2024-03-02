@@ -38,8 +38,8 @@ module RuboCop
       class FactoryBotPropertyOrder < RuboCop::Cop::Base
         extend AutoCorrector
         include RangeHelp
-
-        include ::Sevencop::CopConcerns::Ordered
+        include Sevencop::CopConcerns::Ordered
+        include ::Momocop::Helpers::FactoryBotHelper
 
         MSG = 'Sort properties and associations alphabetically.'
 
@@ -83,68 +83,6 @@ module RuboCop
           group = definition_type(node) == :association ? 0 : 1
           index = definition_name(node)
           [group, index]
-        end
-
-        private def defined_properties(block_node)
-          body_node = block_node&.children&.last
-
-          # empty block
-          return [] unless body_node
-
-          # begin
-          if body_node.begin_type?
-            body_node&.children&.select { |node| definition_node?(node) } || []
-          # block
-          elsif body_node.send_type? && definition_node?(body_node)
-            [body_node]
-          else
-            []
-          end
-        end
-
-        RUBOCOP_HELPER_METHODS = %i[trait transient before after].freeze
-
-        private def definition_node?(node)
-          if node.send_type?
-            return !RUBOCOP_HELPER_METHODS.include?(node.method_name)
-          elsif node.block_type? && node.children.first.send_type?
-            return !RUBOCOP_HELPER_METHODS.include?(node.children.first.method_name)
-          end
-
-          return false
-        end
-
-        private def definition_type(node)
-          send_node = node.send_type? ? node : node.children.first
-          has_association_body =
-            send_node
-            .block_node
-            &.children
-            &.last
-            # sinble-statement block or multi-statement block
-            &.then { _1.send_type? ? [_1] : _1.children }
-            &.any? { _1.is_a?(Parser::AST::Node) && _1.send_type? && _1.method_name == :association }
-          if %i[association sequence].include? send_node.method_name
-            send_node.method_name
-          elsif has_association_body
-            :association
-          else
-            :property
-          end
-        end
-
-        private def definition_name(node)
-          send_node = node.send_type? ? node : node.children.first
-          if %i[association sequence].include? send_node.method_name
-            send_node.arguments.first.value
-          else
-            send_node.method_name.to_sym
-          end
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

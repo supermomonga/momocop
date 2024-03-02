@@ -17,6 +17,10 @@ require_relative 'momocop/config_injector'
 require_relative 'momocop/enum_extractor'
 require_relative 'momocop/version'
 
+Dir[File.join(__dir__, 'momocop/helpers', '*.rb')].each do |file|
+  require file
+end
+
 Momocop::ConfigInjector.inject_default_config!
 
 Dir[File.join(__dir__, 'rubocop/cop/momocop', '*.rb')].each do |file|

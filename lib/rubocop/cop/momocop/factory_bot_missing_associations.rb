@@ -24,8 +24,10 @@ module RuboCop
       #     end
       #   end
       class FactoryBotMissingAssociations < RuboCop::Cop::Base
-        include RuboCop::Cop::ActiveRecordHelper
         extend AutoCorrector
+        include RuboCop::Cop::ActiveRecordHelper
+        include ::Momocop::Helpers::FactoryBotHelper
+        include ::Momocop::Helpers::RailsHelper
 
         MSG = 'Ensure all associations of the model class are defined in the factory.'
 
@@ -79,32 +81,10 @@ module RuboCop
           end
         end
 
-        private def model_file_path(class_name)
-          "app/models/#{class_name.underscore}.rb"
-        end
-
         private def one_line_block?(block_node)
           return false if block_node.nil?
 
           block_node.loc.begin.line == block_node.loc.end.line
-        end
-
-        private def model_file_source(class_name)
-          path = model_file_path(class_name)
-          return File.read(path) if File.exist?(path)
-        end
-
-        private def get_model_association_names(class_name)
-          source = model_file_source(class_name)
-          return [] unless source
-
-          extractor = ::Momocop::AssociationExtractor.new
-          associations = extractor.extract(source)
-          belongs_to_associations =
-            associations
-            .select { _1[:type] == :belongs_to }
-            .map { _1[:name].to_s }
-          return belongs_to_associations
         end
 
         private def get_defined_association_names(block_node)
@@ -126,20 +106,8 @@ module RuboCop
           return send_node.method_name.to_s
         end
 
-        private def inside_factory_bot_factory?(node)
-          context = node.each_ancestor(:block).first
-          send_node = context.block_type? ? context.send_node : context
-
-          return send_node.method_name == :factory
-        end
-
         private def generate_association_definition(property)
           "#{property} { association :#{property} }"
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
 
         private def get_class_name(node)

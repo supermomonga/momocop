@@ -21,6 +21,7 @@ module RuboCop
       #   end
       class FactoryBotConsistentFileName < RuboCop::Cop::Base
         include RangeHelp
+        include ::Momocop::Helpers::FactoryBotHelper
 
         MSG = 'Factory name should match the file name.'
 
@@ -41,11 +42,6 @@ module RuboCop
           return unless actual_file_name != expected_file_name
 
           add_offense(node.source_range, message: MSG)
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

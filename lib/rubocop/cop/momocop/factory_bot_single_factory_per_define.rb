@@ -43,13 +43,15 @@ module RuboCop
       #     end
       #   end
       class FactoryBotSingleFactoryPerDefine < RuboCop::Cop::Base
+        include ::Momocop::Helpers::FactoryBotHelper
+
         MSG = 'Only one top-level factory is allowed per FactoryBot.define.'
 
         RESTRICT_ON_SEND = %i[define].freeze
 
         # Define the investigation method to be called during cop processing.
         def on_send(node)
-          return unless factory_bot_define_block?(node)
+          return unless factory_bot_define?(node)
 
           factories = top_level_factories(node)
 
@@ -59,11 +61,6 @@ module RuboCop
           factories[1..].each do |factory|
             add_offense(factory.loc.expression, message: MSG)
           end
-        end
-
-        # Checks if the node is a FactoryBot definition block.
-        private def factory_bot_define_block?(node)
-          node.receiver&.const_name == 'FactoryBot'
         end
 
         # Returns all top-level factories within a FactoryBot.define block.

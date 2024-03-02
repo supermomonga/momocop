@@ -19,6 +19,7 @@ module RuboCop
       #   end
       class FactoryBotInlineAssociation < RuboCop::Cop::Base
         extend AutoCorrector
+        include ::Momocop::Helpers::FactoryBotHelper
 
         MSG = 'Use inline association definition instead of separate `association` method call.'
 
@@ -65,18 +66,6 @@ module RuboCop
             factory_option:,
             rest_options:
           }
-        end
-
-        private def inside_factory_bot_factory?(node)
-          context = node.each_ancestor(:block).first
-          send_node = context.block_type? ? context.send_node : context
-
-          return send_node.method_name == :factory
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
       end
     end

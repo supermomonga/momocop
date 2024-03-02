@@ -27,8 +27,10 @@ module RuboCop
       #     end
       #   end
       class FactoryBotMissingProperties < RuboCop::Cop::Base
-        include RuboCop::Cop::ActiveRecordHelper
         extend AutoCorrector
+        include RuboCop::Cop::ActiveRecordHelper
+        include ::Momocop::Helpers::FactoryBotHelper
+        include ::Momocop::Helpers::RailsHelper
 
         MSG = 'Ensure all properties of the model class are defined in the factory.'
 
@@ -106,69 +108,8 @@ module RuboCop
           end
         end
 
-        private def model_file_path(class_name)
-          "app/models/#{class_name.underscore}.rb"
-        end
-
         private def one_line_block?(block_node)
           block_node.loc.begin.line == block_node.loc.end.line
-        end
-
-        private def model_file_source(class_name)
-          path = model_file_path(class_name)
-          return File.read(path) if File.exist?(path)
-        end
-
-        private def get_model_enum_property_names(class_name)
-          source = model_file_source(class_name)
-          return [] unless source
-
-          extractor = ::Momocop::EnumExtractor.new
-          enums = extractor.extract(source)
-          return enums.map(&:to_sym)
-        end
-
-        private def get_model_foreign_key_column_names(class_name)
-          source = model_file_source(class_name)
-          return [] unless source
-
-          extractor = ::Momocop::AssociationExtractor.new
-          associations = extractor.extract(source)
-          foreign_key_names =
-            associations
-            .select { _1[:type] == :belongs_to }
-            .map { |association|
-              options = association[:options]
-              options[:foreign_key] || "#{association[:name]}_id"
-            }
-            .compact
-          return foreign_key_names.map(&:to_sym)
-        end
-
-        RESTRICTED_COLUMNS = %w[created_at updated_at].freeze
-
-        private def get_model_property_names(class_name)
-          table = schema.table_by(name: table_name(class_name))
-          return [] unless table
-
-          column_names = table.columns.reject { _1.type == :references }.map(&:name) - RESTRICTED_COLUMNS
-          return column_names.map(&:to_sym)
-        end
-
-        # e.g.)
-        # 'User' -> ['users']
-        # 'Admin::User' -> ['admin_users', 'users']
-        private def table_name(class_name)
-          # TODO: parse model class file and try to get table_name_prefix and table_name_suffix
-          class_name.tableize.gsub('/', '_')
-        end
-
-        # e.g.)
-        # 'User' -> ['users']
-        # 'Admin::User' -> ['admin_users', 'users']
-        private def foreign_key_name(class_name)
-          # TODO: parse model class file and try to get table_name_prefix and table_name_suffix
-          "#{class_name.underscore.gsub('/', '_')}_id"
         end
 
         private def get_defined_sequence_names(block_node)
@@ -190,11 +131,6 @@ module RuboCop
             &.reject { %i[sequence association].include? _1 }
             &.map(&:to_sym)
           return property_names
-        end
-
-        private def inside_factory_bot_define?(node)
-          ancestors = node.each_ancestor(:block).to_a
-          ancestors.any? { |ancestor| ancestor.method_name == :define && ancestor.receiver&.const_name == 'FactoryBot' }
         end
 
         private def get_class_name(node)
