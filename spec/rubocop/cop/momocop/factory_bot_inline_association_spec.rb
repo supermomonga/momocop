@@ -10,7 +10,7 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
           factory :blog_post do
             user { association :user }
             profile { association :profile, foo: :bar }
-            role { association [ :foo, :trait], foo: :bar }
+            role { association :foo, :trait, foo: :bar }
           end
         end
       RUBY
@@ -59,34 +59,66 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotInlineAssociation, :config do
   end
 
   context 'with association having options' do
-    it 'registers no offense for inline association definition with options' do
-      expect_no_offenses(<<~RUBY)
-        FactoryBot.define do
-          factory :blog_post do
-            user { association :user, factory: :admin }
-            foo { association :bar, factory: [ :baz, :trait], prop1: 1 }
+    context 'with factory name option' do
+      it 'registers no offense for inline association definition with options' do
+        expect_no_offenses(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              user { association :user, factory: :admin }
+            end
           end
-        end
-      RUBY
+        RUBY
+      end
+
+      it 'registers offense for separate association method call with options' do
+        expect_offense(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              association(:user, factory: :admin, prop1: 1, prop2: 2)
+              ^^^^^^^^^^^ Momocop/FactoryBotInlineAssociation: Use inline association definition instead of separate `association` method call.
+            end
+          end
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              user { association :admin, prop1: 1, prop2: 2 }
+            end
+          end
+        RUBY
+      end
     end
 
-    it 'registers offense for separate association method call with options' do
-      expect_offense(<<~RUBY)
-        FactoryBot.define do
-          factory :blog_post do
-            association(:user, factory: [:factory, :trait], prop1: 1, prop2: 2)
-            ^^^^^^^^^^^ Momocop/FactoryBotInlineAssociation: Use inline association definition instead of separate `association` method call.
+    context 'with factory name and trait option' do
+      it 'registers no offense for inline association definition with options' do
+        expect_no_offenses(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              foo { association :bar, factory: [:baz, :trait], prop1: 1 }
+            end
           end
-        end
-      RUBY
+        RUBY
+      end
 
-      expect_correction(<<~RUBY)
-        FactoryBot.define do
-          factory :blog_post do
-            user { association [:factory, :trait], prop1: 1, prop2: 2 }
+      it 'registers offense for separate association method call with options' do
+        expect_offense(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              association(:user, factory: [:factory_name, :trait], prop1: 1, prop2: 2)
+              ^^^^^^^^^^^ Momocop/FactoryBotInlineAssociation: Use inline association definition instead of separate `association` method call.
+            end
           end
-        end
-      RUBY
+        RUBY
+
+        expect_correction(<<~RUBY)
+          FactoryBot.define do
+            factory :blog_post do
+              user { association :factory_name, :trait, prop1: 1, prop2: 2 }
+            end
+          end
+        RUBY
+      end
     end
   end
 end

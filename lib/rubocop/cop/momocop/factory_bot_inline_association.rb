@@ -39,7 +39,7 @@ module RuboCop
             convert_options(options) in {
               factory_option:, rest_options:
             }
-            factory = factory_option&.source || ":#{association_name}"
+            factory = factory_option || ":#{association_name}"
             replacement =
               if rest_options.empty?
                 "#{association_name} { association #{factory} }"
@@ -53,7 +53,12 @@ module RuboCop
 
         # `association :foo, factory: :bar, baz: 1 ...` => `foo { association :bar, baz: 1 ...}`
         private def convert_options(options)
-          factory_option = options&.pairs&.find { |pair| pair.key.value == :factory }&.value
+          factory_option =
+            options
+            &.pairs
+            &.find { |pair| pair.key.value == :factory }
+            &.value
+            &.then { _1.array_type? ? _1.values.map(&:source).join(', ') : _1.source }
           rest_options = options&.pairs&.reject { |pair| pair.key.value == :factory } || []
 
           return {
