@@ -42,5 +42,8 @@ jobs:
     - name: Show git diff
       run: git diff
     - name: Check for uncommitted changes
-      # git diff-index で変更があるかどうかを確認する
-      run: git add -A && git diff --cached --quiet HEAD --
+      run: |
+        if [[ `git status --porcelain` ]]; then
+          echo "Uncommitted changes detected. Did you forget to update README.md or README.ja.md?"
+          exit 1
+        fi
