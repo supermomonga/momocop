@@ -23,6 +23,6 @@ end
 
 Momocop::ConfigInjector.inject_default_config!
 
-Dir[File.join(__dir__, 'rubocop/cop/momocop', '*.rb')].each do |file|
+Dir[File.join(__dir__, 'rubocop/cop/momocop', '**', '*.rb')].each do |file|
   require file
 end

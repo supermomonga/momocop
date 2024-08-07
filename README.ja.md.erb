@@ -27,7 +27,7 @@ require:
   - momocop
 
 <%
-  files = Dir.glob('lib/rubocop/cop/momocop/*.rb').sort_by { |f| File.basename(f)}
+  files = Dir.glob('lib/rubocop/cop/momocop/**/*.rb').sort_by { |f| File.basename(f)}
   files.each do |cop_file_path|
   base_name = File.basename(cop_file_path, '.rb')
   cop_class_name = "Momocop/#{base_name.camelize}"
@@ -43,7 +43,7 @@ require:
 |Cop|Rails|FactoryBot|
 |---|:-:|:-:|
 <%
-  files = Dir.glob('lib/rubocop/cop/momocop/*.rb').sort_by { |f| File.basename(f)}
+  files = Dir.glob('lib/rubocop/cop/momocop/**/*.rb').sort_by { |f| File.basename(f)}
   files.each do |cop_file_path|
   base_name = File.basename(cop_file_path, '.rb')
   cop_class_name = "Momocop/#{base_name.camelize}"
