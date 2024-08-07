@@ -41,6 +41,8 @@ jobs:
       run: bundle exec rake readme:update
     - name: Show git diff
       run: git diff
+    - name: Show git status
+      run: git status --porcelain
     - name: Check for uncommitted changes
       run: |
         if [[ `git status --porcelain` ]]; then
