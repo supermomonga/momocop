@@ -7,16 +7,23 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      release_type:
+        type: choice
+        description: How to bump the version.
+        options:
+          - major
+          - minor
+          - patch
+        default: patch
       version:
-        description: Version to change to.
-        required: true
+        description: Enter this if you wish to specify the version directly.
         type: string
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -27,4 +34,5 @@ jobs:
           command: |
             sed -i -r 's/([0-9]+\.[0-9]+\.[0-9]+)/${{ inputs.version }}/' lib/*/version.rb
             bundle install
+          release_type: ${{ inputs.release_type }}
           version: ${{ inputs.version }}
