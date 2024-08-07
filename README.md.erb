@@ -30,7 +30,8 @@ require:
   files = Dir.glob('lib/rubocop/cop/momocop/**/*.rb').sort_by { |f| File.basename(f)}
   files.each do |cop_file_path|
   base_name = File.basename(cop_file_path, '.rb')
-  cop_class_name = "Momocop/#{base_name.camelize}"
+  namespace = File.dirname(cop_file_path).sub('lib/rubocop/cop/', '').split('/').map(&:camelize).join('/')
+  cop_class_name = "#{namespace}/#{base_name.camelize}"
 
 -%>
 <%= cop_class_name %>:
@@ -46,7 +47,8 @@ require:
   files = Dir.glob('lib/rubocop/cop/momocop/**/*.rb').sort_by { |f| File.basename(f)}
   files.each do |cop_file_path|
   base_name = File.basename(cop_file_path, '.rb')
-  cop_class_name = "Momocop/#{base_name.camelize}"
+  namespace = File.dirname(cop_file_path).sub('lib/rubocop/cop/', '').split('/').map(&:camelize).join('/')
+  cop_class_name = "#{namespace}/#{base_name.camelize}"
   is_factory_cop = cop_file_path.include?('factory_bot_')
   is_rails_cop = cop_file_path.match?(/(factory_bot_|rails_)/)
   rails_mark = is_rails_cop ? ':white_check_mark:' : ''
