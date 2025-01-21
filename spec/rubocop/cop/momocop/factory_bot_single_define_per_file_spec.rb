@@ -35,4 +35,26 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotSingleDefinePerFile, :config do
       RUBY
     end
   end
+
+  context 'when file is empty' do
+    it 'registers no offense' do
+      expect_no_offenses('')
+    end
+  end
+
+  context 'when file contains only comments' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        # This is a comment
+        # Another comment line
+
+        =begin
+        This is a block comment
+        Multiple lines are allowed
+        =end
+
+        # Yet another comment
+      RUBY
+    end
+  end
 end

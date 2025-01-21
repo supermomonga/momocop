@@ -32,6 +32,8 @@ module RuboCop
         MSG = 'Only one `FactoryBot.define` block is allowed per file.'
 
         def on_new_investigation
+          return unless processed_source.ast
+
           factory_bot_define_blocks =
             processed_source
             .ast
