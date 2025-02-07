@@ -7,7 +7,7 @@ module RuboCop
         extend AutoCorrector
         include RangeHelp
 
-        MSG = 'RSpec describe のテキストは「%<pattern>s」にマッチする必要があります'
+        MSG = 'RSpec describe text must match pattern: %<pattern>s'
 
         def_node_matcher :describe_block?, <<~PATTERN
           (send nil? :describe ...)
@@ -16,27 +16,17 @@ module RuboCop
         def on_send(node)
           return unless describe_block?(node)
 
-          text_node = node.arguments.first
-          return unless text_node&.str_type?
+          arg = node.first_argument
+          return unless arg&.str_type?
 
-          text = text_node.value.to_s
-          return if text.match?(required_pattern)
+          text = arg.value.to_s
+          pattern = cop_config['RequiredPattern']
+          return if text.match?(Regexp.new(pattern))
 
-          range = text_node.loc.expression
           add_offense(
-            Parser::Source::Range.new(
-              range.source_buffer,
-              range.begin_pos,
-              range.end_pos
-            ),
-            message: format(MSG, pattern: cop_config['RequiredPattern'])
+            node.first_argument.loc.expression,
+            message: format(MSG, pattern:)
           )
-        end
-
-        private
-
-        def required_pattern
-          @required_pattern ||= Regexp.new(cop_config['RequiredPattern'])
         end
       end
     end

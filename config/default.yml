@@ -1,4 +1,4 @@
 Momocop/RSpecDescribeTextPattern:
-  Description: 'RSpec describe のテキストが設定されたパターンにマッチすることを確認します'
+  Description: 'Ensures that RSpec describe text matches the configured pattern'
   Enabled: true
-  RequiredPattern: '.+こと$'
+  RequiredPattern: '^(?!When ).+'

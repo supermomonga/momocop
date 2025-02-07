@@ -4,15 +4,15 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
   let(:config) do
     RuboCop::Config.new(
       'Momocop/RSpecDescribeTextPattern' => {
-        'RequiredPattern' => '.+こと$'
+        'RequiredPattern' => '^(?!When ).+'
       }
     )
   end
 
   it 'registers an offense when describe text does not match pattern' do
     expect_offense(<<~RUBY)
-      describe 'ユーザーを作成する' do
-               ^^^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
+      describe 'When user creates something' do
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ RSpec describe text must match pattern: ^(?!When ).+
         # ...
       end
     RUBY
@@ -20,7 +20,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
 
   it 'does not register an offense when describe text matches pattern' do
     expect_no_offenses(<<~RUBY)
-      describe 'ユーザーを作成すること' do
+      describe 'A user creates something' do
         # ...
       end
     RUBY
@@ -28,9 +28,9 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
 
   it 'checks nested describe blocks' do
     expect_offense(<<~RUBY)
-      describe 'ユーザー管理すること' do
-        describe 'ユーザーを作成する' do
-                 ^^^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
+      describe 'A user management' do
+        describe 'When creating user' do
+                 ^^^^^^^^^^^^^^^^^^^^ RSpec describe text must match pattern: ^(?!When ).+
           # ...
         end
       end
