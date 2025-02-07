@@ -3,6 +3,11 @@ Momocop/RSpecDescribeTextPattern:
   Enabled: true
   RequiredPattern: '^(?!When ).+'
 
+Momocop/RSpecContextTextPattern:
+  Description: 'Ensures that RSpec context text starts with When or If'
+  Enabled: true
+  RequiredPattern: '^(When|If) .+'
+
 Momocop/RSpecItTextPattern:
   Description: 'Ensures that RSpec it block text matches the configured pattern'
   Enabled: true
