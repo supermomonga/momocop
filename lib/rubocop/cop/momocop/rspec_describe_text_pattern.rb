@@ -22,11 +22,9 @@ module RuboCop
           text = text_node.value.to_s
           return if text.match?(required_pattern)
 
-          range = text_node.source_range
           add_offense(
             text_node,
-            message: format(MSG, pattern: cop_config['RequiredPattern']),
-            location: :expression
+            message: format(MSG, pattern: cop_config['RequiredPattern'])
           )
         end
 
