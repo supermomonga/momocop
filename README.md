@@ -52,6 +52,8 @@ Momocop/RspecContextTextPattern:
   Enabled: true
 Momocop/RspecDescribeTextPattern:
   Enabled: true
+Momocop/RspecItTextPattern:
+  Enabled: true
 ```
 
 ## Cops
@@ -71,6 +73,7 @@ Momocop/RspecDescribeTextPattern:
 |[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)|||
 |[`Momocop/RspecContextTextPattern`](lib/rubocop/cop/momocop/rspec_context_text_pattern.rb)|||
 |[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||
+|[`Momocop/RspecItTextPattern`](lib/rubocop/cop/momocop/rspec_it_text_pattern.rb)|||
 
 ## Contributing
 
