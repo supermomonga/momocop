@@ -37,6 +37,18 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
     RUBY
   end
 
+  it 'does not register an offense for describe without block' do
+    expect_no_offenses(<<~RUBY)
+      describe 'Without block'
+    RUBY
+  end
+
+  it 'does not register an offense for describe with empty {} block' do
+    expect_no_offenses(<<~RUBY)
+      describe('{} block') {}
+    RUBY
+  end
+
   context 'with custom pattern' do
     let(:config) do
       RuboCop::Config.new(
