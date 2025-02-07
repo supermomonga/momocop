@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
   it 'registers an offense when describe text does not match pattern' do
     expect_offense(<<~RUBY)
       describe 'ユーザーを作成する' do
-               ^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
+               ^^^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
         # ...
       end
     RUBY
@@ -30,7 +30,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
     expect_offense(<<~RUBY)
       describe 'ユーザー管理すること' do
         describe 'ユーザーを作成する' do
-                 ^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
+                 ^^^^^^^^^^^^^^^^^^^ RSpec describe のテキストは「.+こと$」にマッチする必要があります
           # ...
         end
       end
