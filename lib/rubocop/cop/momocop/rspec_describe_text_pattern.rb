@@ -24,7 +24,11 @@ module RuboCop
 
           source_range = text_node.source_range
           add_offense(
-            source_range,
+            Parser::Source::Range.new(
+              source_range.source_buffer,
+              source_range.begin_pos + 1,
+              source_range.end_pos - 1
+            ),
             message: format(MSG, pattern: cop_config['RequiredPattern'])
           )
         end
