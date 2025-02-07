@@ -2,3 +2,8 @@ Momocop/RSpecDescribeTextPattern:
   Description: 'Ensures that RSpec describe text matches the configured pattern'
   Enabled: true
   RequiredPattern: '^(?!When ).+'
+
+Momocop/RSpecItTextPattern:
+  Description: 'Ensures that RSpec it block text matches the configured pattern'
+  Enabled: true
+  RequiredPattern: '^(should|will) .+$'

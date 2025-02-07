@@ -50,6 +50,8 @@ Momocop/Layout/LeadingCommentSpace:
   Enabled: true
 Momocop/RspecDescribeTextPattern:
   Enabled: true
+Momocop/RspecItTextPattern:
+  Enabled: true
 ```
 
 ## Cops
@@ -68,6 +70,7 @@ Momocop/RspecDescribeTextPattern:
 |[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)|||
 |[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||
+|[`Momocop/RspecItTextPattern`](lib/rubocop/cop/momocop/rspec_it_text_pattern.rb)|||
 
 ## Contributing
 
