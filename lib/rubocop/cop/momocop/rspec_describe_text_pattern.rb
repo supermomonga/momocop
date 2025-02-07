@@ -22,13 +22,8 @@ module RuboCop
           text = text_node.value.to_s
           return if text.match?(required_pattern)
 
-          source_range = text_node.source_range
           add_offense(
-            Parser::Source::Range.new(
-              source_range.source_buffer,
-              source_range.begin_pos + 1,
-              source_range.end_pos - 1
-            ),
+            node.first_argument,
             message: format(MSG, pattern: cop_config['RequiredPattern'])
           )
         end
