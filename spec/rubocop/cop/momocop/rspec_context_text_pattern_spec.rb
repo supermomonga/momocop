@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecContextTextPattern, :config do
   it 'registers an offense when context text does not match pattern' do
     expect_offense(<<~RUBY)
       context 'the user creates something' do
-              ^^^^^^^^^^^^^^^^^^^^^^^^^ RSpec context text must match pattern: ^(When|If) .+
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ RSpec context text must match pattern: ^(When|If) .+
         # ...
       end
     RUBY
@@ -38,7 +38,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecContextTextPattern, :config do
     expect_offense(<<~RUBY)
       context 'When managing users' do
         context 'the user exists' do
-                ^^^^^^^^^^^^^^^^ RSpec context text must match pattern: ^(When|If) .+
+                ^^^^^^^^^^^^^^^^^ RSpec context text must match pattern: ^(When|If) .+
           # ...
         end
       end
