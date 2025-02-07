@@ -48,6 +48,8 @@ Momocop/FactoryBotSingularFactoryName:
   Enabled: true
 Momocop/Layout/LeadingCommentSpace:
   Enabled: true
+Momocop/RspecDescribeTextPattern:
+  Enabled: true
 ```
 
 ## Cops
@@ -65,6 +67,7 @@ Momocop/Layout/LeadingCommentSpace:
 |[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:|
 |[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)|||
+|[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||
 
 ## Contributing
 

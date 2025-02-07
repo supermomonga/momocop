@@ -1,0 +1,4 @@
+Momocop/RSpecDescribeTextPattern:
+  Description: 'Ensures that RSpec describe text matches the configured pattern'
+  Enabled: true
+  RequiredPattern: '^(?!When ).+'
