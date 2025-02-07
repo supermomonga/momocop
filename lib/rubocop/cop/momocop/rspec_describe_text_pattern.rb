@@ -23,7 +23,7 @@ module RuboCop
           return if text.match?(allowed_pattern)
 
           add_offense(
-            text_node,
+            text_node.loc.expression,
             message: format(MSG, pattern: cop_config['AllowedPattern'])
           )
         end
