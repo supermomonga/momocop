@@ -24,7 +24,7 @@ module RuboCop
           return if text.match?(Regexp.new(pattern))
 
           add_offense(
-            node.first_argument.loc.expression,
+            node.first_argument.source_range,
             message: format(MSG, pattern:)
           )
         end
