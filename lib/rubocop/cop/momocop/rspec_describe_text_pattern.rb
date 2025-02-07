@@ -24,11 +24,7 @@ module RuboCop
 
           range = text_node.source_range
           add_offense(
-            Parser::Source::Range.new(
-              range.source_buffer,
-              range.begin_pos + 1,
-              range.end_pos - 1
-            ),
+            text_node,
             message: format(MSG, pattern: cop_config['RequiredPattern']),
             location: :expression
           )
