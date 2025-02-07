@@ -4,7 +4,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
   let(:config) do
     RuboCop::Config.new(
       'Momocop/RSpecDescribeTextPattern' => {
-        'AllowedPattern' => '.+こと$'
+        'RequiredPattern' => '.+こと$'
       }
     )
   end
@@ -41,7 +41,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
     let(:config) do
       RuboCop::Config.new(
         'Momocop/RSpecDescribeTextPattern' => {
-          'AllowedPattern' => '^Test.+'
+          'RequiredPattern' => '^Test.+'
         }
       )
     end

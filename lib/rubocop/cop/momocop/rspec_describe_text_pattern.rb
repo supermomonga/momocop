@@ -20,22 +20,18 @@ module RuboCop
           return unless text_node&.str_type?
 
           text = text_node.value.to_s
-          return if text.match?(allowed_pattern)
+          return if text.match?(required_pattern)
 
-          range = text_node.loc.expression
           add_offense(
-            range.with(
-              begin_pos: range.begin_pos + 1,
-              end_pos: range.end_pos - 1
-            ),
-            message: format(MSG, pattern: cop_config['AllowedPattern'])
+            text_node.loc.str_content,
+            message: format(MSG, pattern: cop_config['RequiredPattern'])
           )
         end
 
         private
 
-        def allowed_pattern
-          @allowed_pattern ||= Regexp.new(cop_config['AllowedPattern'])
+        def required_pattern
+          @required_pattern ||= Regexp.new(cop_config['RequiredPattern'])
         end
       end
     end

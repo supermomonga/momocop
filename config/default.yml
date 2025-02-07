@@ -1,4 +1,4 @@
 Momocop/RSpecDescribeTextPattern:
   Description: 'RSpec describe のテキストが設定されたパターンにマッチすることを確認します'
   Enabled: true
-  AllowedPattern: '.+こと$'
+  RequiredPattern: '.+こと$'
