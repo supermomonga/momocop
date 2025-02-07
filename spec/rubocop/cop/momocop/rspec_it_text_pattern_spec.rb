@@ -12,7 +12,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecItTextPattern, :config do
   it 'registers an offense when it block text does not match pattern' do
     expect_offense(<<~RUBY)
       it 'does something' do
-         ^^^^^^^^^^^^^^^ RSpec it block text must match pattern: ^(should|will) .+$
+         ^^^^^^^^^^^^^^^^ RSpec it block text must match pattern: ^(should|will) .+$
         # ...
       end
     RUBY
