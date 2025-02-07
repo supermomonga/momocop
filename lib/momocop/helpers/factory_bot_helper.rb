@@ -75,7 +75,7 @@ module Momocop
 
         # begin
         if body_node.begin_type?
-          body_node&.children&.select { |node| definition_node?(node) } || []
+          body_node&.children&.select { |child_node| definition_node?(child_node) } || []
         # block
         elsif body_node.send_type? && definition_node?(body_node)
           [body_node]
