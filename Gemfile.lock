@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    momocop (0.2.1)
+    momocop (0.2.2)
       activesupport
       rubocop (>= 1.49.0)
       rubocop-rails
