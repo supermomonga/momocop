@@ -65,12 +65,18 @@ module RuboCop
 
         # Returns all top-level factories within a FactoryBot.define block.
         private def top_level_factories(node)
+          block = node.block_node
+          return [] unless block
+
+          body = block.body
+          return [] unless body
+
           factory_nodes =
-            node
-            .block_node
-            .body.each_descendant(:send)
+            body
+            .each_descendant(:send)
             .select { |n| n.method_name == :factory }
-          factory_nodes.select { |factory_node|
+
+          factory_nodes.select do |factory_node|
             base_node = factory_node.block_node || factory_node
             context =
               base_node
@@ -78,7 +84,7 @@ module RuboCop
               .map { _1.send_node&.method_name&.to_sym }
               .find { %i[define factory].include? _1 }
             context == :define
-          }
+          end
         end
       end
     end
