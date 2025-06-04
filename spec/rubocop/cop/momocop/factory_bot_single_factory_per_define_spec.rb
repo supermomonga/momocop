@@ -63,4 +63,21 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotSingleFactoryPerDefine, :config 
       RUBY
     end
   end
+
+  context 'when FactoryBot.define block is empty' do
+    it 'does not raise error and registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        FactoryBot.define do
+        end
+      RUBY
+    end
+  end
+
+  context 'when FactoryBot.define has no block' do
+    it 'does not raise error and registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        FactoryBot.define
+      RUBY
+    end
+  end
 end
