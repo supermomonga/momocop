@@ -3,7 +3,7 @@
 module RuboCop
   module Cop
     module Momocop
-      class RSpecItWording < Base
+      class RSpecExampleWording < Base
         extend AutoCorrector
         include RangeHelp
 

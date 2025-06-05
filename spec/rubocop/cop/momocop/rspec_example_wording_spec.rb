@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::RSpecItWording, :config do
+RSpec.describe RuboCop::Cop::Momocop::RSpecExampleWording, :config do
   let(:config) do
     RuboCop::Config.new(
-      'Momocop/RSpecItWording' => {
+      'Momocop/RSpecExampleWording' => {
         'RequiredPattern' => '^(should|will) .+$'
       }
     )

@@ -48,11 +48,11 @@ Momocop/FactoryBotSingularFactoryName:
   Enabled: true
 Momocop/Layout/LeadingCommentSpace:
   Enabled: true
-Momocop/RspecContextTextPattern:
+Momocop/RspecContextWording:
   Enabled: true
-Momocop/RspecDescribeTextPattern:
+Momocop/RspecDescribeWording:
   Enabled: true
-Momocop/RspecItTextPattern:
+Momocop/RspecExampleWording:
   Enabled: true
 ```
 
@@ -71,9 +71,9 @@ Momocop/RspecItTextPattern:
 |[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:||
 |[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:||
 |[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)||||
-|[`Momocop/RspecContextTextPattern`](lib/rubocop/cop/momocop/rspec_context_text_pattern.rb)|||:white_check_mark:|
-|[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||:white_check_mark:|
-|[`Momocop/RspecItTextPattern`](lib/rubocop/cop/momocop/rspec_it_text_pattern.rb)|||:white_check_mark:|
+|[`Momocop/RspecContextWording`](lib/rubocop/cop/momocop/rspec_context_wording.rb)|||:white_check_mark:|
+|[`Momocop/RspecDescribeWording`](lib/rubocop/cop/momocop/rspec_describe_wording.rb)|||:white_check_mark:|
+|[`Momocop/RspecExampleWording`](lib/rubocop/cop/momocop/rspec_example_wording.rb)|||:white_check_mark:|
 
 ## 貢献
 
