@@ -1,14 +1,14 @@
-Momocop/RSpecDescribeTextPattern:
+Momocop/RSpecDescribeWording:
   Description: 'Ensures that RSpec describe text matches the configured pattern'
   Enabled: true
   RequiredPattern: '^(?!When ).+'
 
-Momocop/RSpecContextTextPattern:
+Momocop/RSpecContextWording:
   Description: 'Ensures that RSpec context text starts with When or If'
   Enabled: true
   RequiredPattern: '^(When|If) .+'
 
-Momocop/RSpecItTextPattern:
+Momocop/RSpecItWording:
   Description: 'Ensures that RSpec it block text matches the configured pattern'
   Enabled: true
   RequiredPattern: '^(should|will) .+$'

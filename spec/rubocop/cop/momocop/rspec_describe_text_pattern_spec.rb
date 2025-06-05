@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
+RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeWording, :config do
   let(:config) do
     RuboCop::Config.new(
-      'Momocop/RSpecDescribeTextPattern' => {
+      'Momocop/RSpecDescribeWording' => {
         'RequiredPattern' => '^(?!When ).+'
       }
     )
@@ -58,7 +58,7 @@ RSpec.describe RuboCop::Cop::Momocop::RSpecDescribeTextPattern, :config do
   context 'with custom pattern' do
     let(:config) do
       RuboCop::Config.new(
-        'Momocop/RSpecDescribeTextPattern' => {
+        'Momocop/RSpecDescribeWording' => {
           'RequiredPattern' => '^Test.+'
         }
       )

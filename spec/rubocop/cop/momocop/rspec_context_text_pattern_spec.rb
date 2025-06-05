@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Momocop::RSpecContextTextPattern, :config do
+RSpec.describe RuboCop::Cop::Momocop::RSpecContextWording, :config do
   let(:config) do
     RuboCop::Config.new(
-      'Momocop/RSpecContextTextPattern' => {
+      'Momocop/RSpecContextWording' => {
         'RequiredPattern' => '^(When|If) .+'
       }
     )

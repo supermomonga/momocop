@@ -58,22 +58,22 @@ Momocop/RspecItTextPattern:
 
 ## Cops
 
-|Cop|Rails|FactoryBot|
-|---|:-:|:-:|
-|[`Momocop/FactoryBotClassExistence`](lib/rubocop/cop/momocop/factory_bot_class_existence.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotConsistentFileName`](lib/rubocop/cop/momocop/factory_bot_consistent_file_name.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotInlineAssociation`](lib/rubocop/cop/momocop/factory_bot_inline_association.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingAssociations`](lib/rubocop/cop/momocop/factory_bot_missing_associations.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotSingleDefinePerFile`](lib/rubocop/cop/momocop/factory_bot_single_define_per_file.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:|
-|[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)|||
-|[`Momocop/RspecContextTextPattern`](lib/rubocop/cop/momocop/rspec_context_text_pattern.rb)|||
-|[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||
-|[`Momocop/RspecItTextPattern`](lib/rubocop/cop/momocop/rspec_it_text_pattern.rb)|||
+|Cop|Rails|FactoryBot|RSpec|
+|---|:-:|:-:|:-:|
+|[`Momocop/FactoryBotClassExistence`](lib/rubocop/cop/momocop/factory_bot_class_existence.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotConsistentFileName`](lib/rubocop/cop/momocop/factory_bot_consistent_file_name.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotInlineAssociation`](lib/rubocop/cop/momocop/factory_bot_inline_association.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotMissingAssociations`](lib/rubocop/cop/momocop/factory_bot_missing_associations.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotMissingClassOption`](lib/rubocop/cop/momocop/factory_bot_missing_class_option.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotMissingProperties`](lib/rubocop/cop/momocop/factory_bot_missing_properties.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotPropertyOrder`](lib/rubocop/cop/momocop/factory_bot_property_order.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotSingleDefinePerFile`](lib/rubocop/cop/momocop/factory_bot_single_define_per_file.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:||
+|[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)||||
+|[`Momocop/RspecContextTextPattern`](lib/rubocop/cop/momocop/rspec_context_text_pattern.rb)|||:white_check_mark:|
+|[`Momocop/RspecDescribeTextPattern`](lib/rubocop/cop/momocop/rspec_describe_text_pattern.rb)|||:white_check_mark:|
+|[`Momocop/RspecItTextPattern`](lib/rubocop/cop/momocop/rspec_it_text_pattern.rb)|||:white_check_mark:|
 
 ## Contributing
 

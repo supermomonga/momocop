@@ -41,8 +41,8 @@ require:
 
 ## Cop一覧
 
-|Cop|Rails|FactoryBot|
-|---|:-:|:-:|
+|Cop|Rails|FactoryBot|RSpec|
+|---|:-:|:-:|:-:|
 <%
   files = Dir.glob('lib/rubocop/cop/momocop/**/*.rb').sort_by { |f| File.basename(f)}
   files.each do |cop_file_path|
@@ -51,10 +51,12 @@ require:
   cop_class_name = "#{namespace}/#{base_name.camelize}"
   is_factory_cop = cop_file_path.include?('factory_bot_')
   is_rails_cop = cop_file_path.match?(/(factory_bot_|rails_)/)
+  is_rspec_cop = cop_file_path.match?(/(rspec_)/)
   rails_mark = is_rails_cop ? ':white_check_mark:' : ''
   factory_bot_mark = is_factory_cop ? ':white_check_mark:' : ''
+  rspec_mark = is_rspec_cop ? ':white_check_mark:' : ''
 
-  table_row = "|[`#{cop_class_name}`](#{cop_file_path})|#{rails_mark}|#{factory_bot_mark}|"
+  table_row = "|[`#{cop_class_name}`](#{cop_file_path})|#{rails_mark}|#{factory_bot_mark}|#{rspec_mark}|"
 -%>
 <%= table_row %>
 <% end -%>
