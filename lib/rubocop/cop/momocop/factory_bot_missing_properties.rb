@@ -75,7 +75,7 @@ module RuboCop
             model_properties -
             (defined_sequences + defined_properties) -
             model_foreign_keys
-          ).sort
+          )
 
           # for definition block generation
           model_enum_properties = get_model_enum_property_names(class_name)
@@ -83,7 +83,18 @@ module RuboCop
           # Add offense for missing properties
           return unless missing_properties.any?
 
-          add_offense(node, message: MSG) do |corrector|
+          msg = "Add properties #{missing_properties.map { |p| "`#{p}`" }.join(', ')}."
+          # Determine offense range based on whether we have all arguments including 'class' option
+          # Find the class option argument (always exists when get_class_name returns non-nil)
+          class_option_arg = node.arguments.find { |arg| 
+            arg.hash_type? && arg.pairs.any? { |pair| 
+              pair.key.sym_type? && pair.key.children.first == :class 
+            } 
+          }
+          
+          # Mark from factory to the class option argument
+          offense_range = node.loc.selector.join(class_option_arg.loc.expression)
+          add_offense(offense_range, message: msg) do |corrector|
             next unless block_node
 
             # Add newline before closing block if it's a one-liner

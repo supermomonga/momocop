@@ -39,5 +39,40 @@ RSpec.describe Momocop::AssociationExtractor do
       actual = extractor.extract(StringIO.new(model_content))
       expect(actual).to eq(expected_result)
     end
+
+    context 'with false option values' do
+      let(:model_content) do
+        <<-RUBY
+          class User < ApplicationRecord
+            belongs_to :account, optional: false
+            belongs_to :team, dependent: false
+          end
+        RUBY
+      end
+
+      it 'correctly handles false option values' do
+        extractor = described_class.new
+        actual = extractor.extract(model_content)
+        expected = [
+          { type: :belongs_to, name: :account, options: { optional: false } },
+          { type: :belongs_to, name: :team, options: { dependent: false } }
+        ]
+        expect(actual).to eq(expected)
+      end
+    end
+
+    context 'when node has no children array' do
+      let(:model_content) do
+        <<-RUBY
+          # Just a comment
+        RUBY
+      end
+
+      it 'returns empty array' do
+        extractor = described_class.new
+        actual = extractor.extract(model_content)
+        expect(actual).to eq([])
+      end
+    end
   end
 end

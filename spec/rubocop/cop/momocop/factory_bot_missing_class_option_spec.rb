@@ -39,4 +39,17 @@ RSpec.describe RuboCop::Cop::Momocop::FactoryBotMissingClassOption, :config do
       RUBY
     end
   end
+
+  context 'when factory method is called outside FactoryBot.define block' do
+    it 'registers no offense' do
+      expect_no_offenses(<<~RUBY)
+        factory :user do
+        end
+      RUBY
+
+      expect_no_offenses(<<~RUBY)
+        factory(:user)
+      RUBY
+    end
+  end
 end
