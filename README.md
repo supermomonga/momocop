@@ -48,6 +48,8 @@ Momocop/FactoryBotSingularFactoryName:
   Enabled: true
 Momocop/Layout/LeadingCommentSpace:
   Enabled: true
+Momocop/RbiMissingExtendTSig:
+  Enabled: true
 Momocop/RspecContextWording:
   Enabled: true
 Momocop/RspecDescribeWording:
@@ -71,6 +73,7 @@ Momocop/RspecExampleWording:
 |[`Momocop/FactoryBotSingleFactoryPerDefine`](lib/rubocop/cop/momocop/factory_bot_single_factory_per_define.rb)|:white_check_mark:|:white_check_mark:||
 |[`Momocop/FactoryBotSingularFactoryName`](lib/rubocop/cop/momocop/factory_bot_singular_factory_name.rb)|:white_check_mark:|:white_check_mark:||
 |[`Momocop/Layout/LeadingCommentSpace`](lib/rubocop/cop/momocop/layout/leading_comment_space.rb)||||
+|[`Momocop/RbiMissingExtendTSig`](lib/rubocop/cop/momocop/rbi_missing_extend_t_sig.rb)||||
 |[`Momocop/RspecContextWording`](lib/rubocop/cop/momocop/rspec_context_wording.rb)|||:white_check_mark:|
 |[`Momocop/RspecDescribeWording`](lib/rubocop/cop/momocop/rspec_describe_wording.rb)|||:white_check_mark:|
 |[`Momocop/RspecExampleWording`](lib/rubocop/cop/momocop/rspec_example_wording.rb)|||:white_check_mark:|
