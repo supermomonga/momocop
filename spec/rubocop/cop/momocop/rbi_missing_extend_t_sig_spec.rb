@@ -121,6 +121,30 @@ RSpec.describe RuboCop::Cop::Momocop::RbiMissingExtendTSig, :config do
     end
   end
 
+  context 'when singleton class uses sig' do
+    it 'adds extend T::Sig inside the singleton class' do
+      expect_offense(<<~RUBY)
+        class User
+          class << self
+          ^^^^^ Momocop/RbiMissingExtendTSig: Add `extend T::Sig` when using `sig` to type methods.
+            sig { void }
+            def call; end
+          end
+        end
+      RUBY
+
+      expect_correction(<<~RUBY)
+        class User
+          class << self
+            extend T::Sig
+            sig { void }
+            def call; end
+          end
+        end
+      RUBY
+    end
+  end
+
   context 'when sig block is multi-line' do
     it 'adds extend T::Sig and keeps the block body intact' do
       expect_offense(<<~RUBY)

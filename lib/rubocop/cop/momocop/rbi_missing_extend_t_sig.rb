@@ -44,6 +44,10 @@ module RuboCop
           check_node(node, body_nodes(node), node.loc.keyword)
         end
 
+        def on_sclass(node)
+          check_node(node, body_nodes(node), node.loc.keyword)
+        end
+
         def on_new_investigation
           return unless processed_source.ast
 
