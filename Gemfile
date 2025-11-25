@@ -12,5 +12,3 @@ gem 'rubocop', '~> 1.21'
 gem 'rubocop-rails'
 gem 'rubocop-rake'
 gem 'rubocop-rspec'
-gem 'simplecov', require: false
-gem 'simplecov-console', require: false
