@@ -27,10 +27,12 @@ module Momocop
       # @type method definition_node?(RuboCop::AST::Node): bool
       private def definition_node?(node)
         if node.send_type?
-          !RUBOCOP_HELPER_METHODS.include?(node.method_name)
+          return !RUBOCOP_HELPER_METHODS.include?(node.method_name)
         elsif node.block_type? && node.children.first.send_type?
-          !RUBOCOP_HELPER_METHODS.include?(node.children.first.method_name)
+          return !RUBOCOP_HELPER_METHODS.include?(node.children.first.method_name)
         end
+
+        return false
       end
 
       # @type method definition_type(RuboCop::AST::Node): (:association | :property | :sequence)
@@ -77,6 +79,8 @@ module Momocop
         # block
         elsif body_node.send_type? && definition_node?(body_node)
           [body_node]
+        else
+          []
         end
       end
     end

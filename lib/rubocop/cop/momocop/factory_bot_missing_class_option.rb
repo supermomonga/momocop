@@ -34,8 +34,8 @@ module RuboCop
             # Assuming the factory name matches the class name.
             # You may need a more sophisticated approach for different naming conventions.
             require 'active_support/core_ext/string/inflections'
-            class_name = node.arguments.first.value.to_s.camelize
-            corrector.insert_after(node.arguments.first.loc.expression, ", class: '#{class_name}'")
+            class_name = node.first_argument.value.to_s.camelize
+            corrector.insert_after(node.first_argument.loc.expression, ", class: '#{class_name}'")
           end
         end
       end

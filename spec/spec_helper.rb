@@ -1,32 +1,5 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-require 'simplecov-console'
-
-SimpleCov.start do
-  add_filter '/spec/'
-  add_filter '/vendor/'
-
-  if ENV['CI']
-    formatter SimpleCov::Formatter::SimpleFormatter
-  else
-    formatter SimpleCov::Formatter::MultiFormatter.new(
-      [
-        SimpleCov::Formatter::SimpleFormatter,
-        SimpleCov::Formatter::Console
-      ]
-    )
-  end
-  minimum_coverage 100
-
-  # enable_coverage :branch
-
-  add_group 'Cops', 'lib/rubocop/cop'
-  add_group 'Helpers', 'lib/momocop/helpers'
-  add_group 'Extractors', 'lib/momocop'
-  add_group 'PrismCombo', 'lib/prism_combo'
-end
-
 require 'momocop'
 require 'rubocop'
 require 'rubocop/rspec/support'

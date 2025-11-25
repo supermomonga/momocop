@@ -67,12 +67,6 @@ module RuboCop
             end
           end
 
-          def gemfile_ruby_comment?(comment)
-            return false unless cop_config['AllowGemfileRubyComment']
-            
-            comment.text.match?(/\A#ruby(-gemset)?=/)
-          end
-
           def rbs_inline_comment_style?(comment)
             comment.text.start_with?('#:')
           end
